@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Create a Task in the previous sprint — 'Implement Slack notification API', size M, priority P1.",
+    "should_trigger": true
+  },
+  {
+    "query": "Bulk-create 6 Tasks for the upcoming sprint — backtest engine implementation. The 6 Tasks: data loader, strategy executor, performance analyzer, report generator, test authoring, design doc updates.",
+    "should_trigger": true
+  },
+  {
+    "query": "Mark this Task complete. Implementation is done and tests pass.",
+    "should_trigger": true
+  },
+  {
+    "query": "Add a Task to BACKLOG — write a TimescaleDB migration script.",
+    "should_trigger": true
+  },
+  {
+    "query": "Change the type field of this Task from 'feat' to 'refactor'.",
+    "should_trigger": true
+  },
+  {
+    "query": "Mark the task complete — I just finished the work.",
+    "should_trigger": true
+  },
+  {
+    "query": "Create a new task — implement WebSocket reconnect logic. Size S.",
+    "should_trigger": true
+  },
+  {
+    "query": "How do I fill in an empty depends_on field in Task frontmatter?",
+    "should_trigger": true
+  },
+  {
+    "query": "Add 3 Tasks to the current Sprint — Redis cache layer, config separation, and tests.",
+    "should_trigger": true
+  },
+  {
+    "query": "Change the Task status from in-progress to done.",
+    "should_trigger": true
+  },
+  {
+    "query": "Start the next sprint.",
+    "should_trigger": false
+  },
+  {
+    "query": "Show me the sprint status — how many tasks remain?",
+    "should_trigger": false
+  },
+  {
+    "query": "Start a code review.",
+    "should_trigger": false
+  },
+  {
+    "query": "Tell me which Task files are missing frontmatter — run a doc-quality check.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a work-audit on this sprint.",
+    "should_trigger": false
+  },
+  {
+    "query": "Convert a Phase to a Sprint — I need to plan implementation.",
+    "should_trigger": false
+  },
+  {
+    "query": "Tell me the current project status.",
+    "should_trigger": false
+  },
+  {
+    "query": "Record this lesson — FakeTimeProvider compatibility issue.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run the sprint retrospective.",
+    "should_trigger": false
+  },
+  {
+    "query": "What is a Work unit? Explain the difference between Phase, Sprint, and Task.",
+    "should_trigger": false
+  }
+]

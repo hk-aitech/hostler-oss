@@ -1,0 +1,50 @@
+# Plugin Project Manifest
+# Standard structure for Claude Code plugins / personal tooling projects
+# hostler-plugin itself follows this manifest
+
+name: plugin
+description: Claude Code plugin / personal tooling project — skills- and commands-centric
+
+required_dirs:
+  - path: docs/00-project
+    description: Project definition
+    required_files:
+      - roadmap.md
+  - path: docs/04-guides
+    description: Development / operations guides (skill development standards, etc.)
+  - path: docs/06-reports
+    description: Reports (analysis, measurements, audits, spikes)
+  - path: docs/07-knowledge
+    description: Lessons-learned KB
+    required_subdirs:
+      - mistakes
+  - path: skills
+    description: Skills directory (per skill: SKILL.md + evals/ + references/)
+    pattern: true
+    file_pattern: "*/SKILL.md"
+  - path: commands
+    description: Claude Code commands (.md files)
+  - path: works
+    description: Work management (Sprint / Task)
+    required_files:
+      - CURRENT-FOCUS.md
+    required_subdirs:
+      - tasks
+      - sprints
+
+optional_dirs:
+  - path: docs/01-requirements
+    description: Requirements (optional)
+  - path: docs/02-architecture
+    description: Architecture decisions (optional)
+  - path: docs/08-references
+    description: External references (optional)
+  - path: cli
+    description: CLI binary source (Go)
+
+template_ref: doc-templates
+
+notes:
+  - "Skill development standard: .claude/rules/skill-development.md"
+  - "Command development standard: .claude/rules/command-development.md"
+  - "06-troubleshooting is consolidated into 04-guides/troubleshooting/"

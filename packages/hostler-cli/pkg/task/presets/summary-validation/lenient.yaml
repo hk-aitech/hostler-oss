@@ -1,0 +1,12 @@
+# summary_validation: lenient preset.
+# Only enforces a minimum length (default 10 chars for `--summary`)
+# and the single-verb keyword block. Lowers the barrier for
+# experimentation / prototyping. Not recommended as the default for
+# production environments.
+preset: lenient
+min_unique_words: 0
+forbidden_solo_keywords:
+  - "fix"
+  - "update"
+required_purpose_connectors: []
+enable_llm_judge: false

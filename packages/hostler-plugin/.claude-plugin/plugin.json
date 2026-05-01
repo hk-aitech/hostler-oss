@@ -1,0 +1,11 @@
+{
+  "name": "hstl-oss",
+  "version": "0.1.0",
+  "description": "Sprint / Task workflow toolkit for Claude Code — file-based lifecycle, harness gating, knowledge base capture, ADR support.",
+  "author": {
+    "name": "hyunkim",
+    "email": "hyunkim.tech@gmail.com"
+  },
+  "homepage": "https://github.com/hk-aitech/hostler-oss",
+  "license": "Apache-2.0"
+}

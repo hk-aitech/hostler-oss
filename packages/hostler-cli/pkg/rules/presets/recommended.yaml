@@ -1,0 +1,78 @@
+# preset://hostler/recommended — default recommended preset.
+# SSOT: cli/pkg/db/schemas/harness_defaults.json (task:*, sprint:default).
+# Each Rule ID is delegated to the existing harness logic on the Go side as a bridge Rule.
+version: 1
+
+policies:
+  - name: hostler/task-quality-core
+    enforcement_level: block
+    severity_overrides:
+      # Required items for feature Tasks
+      task.feature.criteria_checked: block
+      task.feature.build_passed: block
+      task.feature.tests_passed: block
+      task.feature.code_review: block
+      task.feature.context_acknowledged: block
+      task.feature.lint_passed: warn
+      # Required items for bugfix Tasks
+      task.bugfix.criteria_checked: block
+      task.bugfix.reproduction: block
+      task.bugfix.root_cause: block
+      task.bugfix.build_passed: block
+      task.bugfix.tests_passed: block
+      task.bugfix.context_acknowledged: block
+      # refactor Task
+      task.refactor.criteria_checked: block
+      task.refactor.code_review: block
+      task.refactor.context_acknowledged: block
+      # hotfix Task
+      task.hotfix.criteria_checked: block
+      task.hotfix.reproduction: block
+      task.hotfix.root_cause: block
+      task.hotfix.rollback_plan: block
+      # infra Task
+      task.infra.criteria_checked: block
+      task.infra.deploy_verified: block
+      task.infra.rollback_plan: block
+      task.infra.change_record: block
+      task.infra.context_acknowledged: block
+      # docs Task
+      task.docs.criteria_checked: block
+      task.docs.doc_review: block
+      task.docs.context_acknowledged: block
+      # test Task
+      task.test.criteria_checked: block
+      task.test.tests_passed: block
+      task.test.context_acknowledged: block
+      # chore Task
+      task.chore.criteria_checked: block
+      # spike Task
+      task.spike.criteria_checked: block
+      task.spike.evaluation_scope: block
+      task.spike.findings_documented: block
+      task.spike.context_acknowledged: block
+
+  - name: hostler/sprint-ceremony
+    enforcement_level: block
+    severity_overrides:
+      sprint.phase.doc_review: block
+      sprint.phase.code_review: block
+      sprint.phase.work_audit: block
+      sprint.phase.doc_cross_check: warn
+      sprint.phase.retro: block
+      sprint.phase.learned: block
+      sprint.phase.dev_deploy: block
+      sprint.phase.build: advisory
+      sprint.phase.followup_tasks: block
+      sprint.phase.skill_update: block
+
+  - name: hostler/commit-convention
+    enforcement_level: warn
+    severity_overrides:
+      commit.message.korean: warn
+      commit.files.no_secrets: block
+      commit.task_id.present: advisory
+
+rules:
+  task.result_section.files_exist: block
+  task.body.not_placeholder: warn

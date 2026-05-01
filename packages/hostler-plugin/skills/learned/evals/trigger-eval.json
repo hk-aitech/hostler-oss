@@ -1,0 +1,22 @@
+[
+  {"query": "I just discovered while debugging that without return_exceptions=True, asyncio.gather cancels the rest of the coroutines on the first exception. Record this.", "should_trigger": true},
+  {"query": "While integrating with the Kiwoom OpenAPI, I found that for TR requests, the continuation key must be a space rather than an empty string, otherwise it doesn't work. Not in the official docs. Save this as a lesson.", "should_trigger": true},
+  {"query": "/learned", "should_trigger": true},
+  {"query": "When using FakeTimeProvider, Timer callbacks didn't run. After Advance(), you must add Task.Delay(1) for the callback to fire. Record this.", "should_trigger": true},
+  {"query": "I learned that setting chunk_time_interval too small when creating a TimescaleDB hypertable degrades performance. Record this knowledge.", "should_trigger": true},
+  {"query": "From this Task I learned that serializing in Dapr Actor with circular references causes infinite loops. Record the lesson.", "should_trigger": true},
+  {"query": "I should remember this stumble — in LS Securities WebSocket, I assumed SC0 TR code was execution data, but it's actually order-fill.", "should_trigger": true},
+  {"query": "Record this. When creating a Redis Streams consumer group, omitting MKSTREAM throws an error if the stream doesn't exist.", "should_trigger": true},
+  {"query": "gotcha! In EF Core, fields with HasConversion don't get server-side evaluation in LINQ — they fall back to client-side. Be careful.", "should_trigger": true},
+  {"query": "Just learned that ML.NET LightGBM doesn't run with the default packages on ARM64 — needs a separate native build. Record it.", "should_trigger": true},
+  {"query": "Start this sprint.", "should_trigger": false},
+  {"query": "Run a code review on the recent commits.", "should_trigger": false},
+  {"query": "Run the sprint retrospective and extract lessons from the previous sprint.", "should_trigger": false},
+  {"query": "Tell me which Task files are missing frontmatter.", "should_trigger": false},
+  {"query": "Show me the current project status.", "should_trigger": false},
+  {"query": "Cross-validate the design docs and check for term-mixing.", "should_trigger": false},
+  {"query": "Write the SLO definition for WebSocket connection stability.", "should_trigger": false},
+  {"query": "Create a new Task — implement a Redis cache layer.", "should_trigger": false},
+  {"query": "Run a work-audit on this sprint's workflow compliance.", "should_trigger": false},
+  {"query": "Create an ADR template.", "should_trigger": false}
+]

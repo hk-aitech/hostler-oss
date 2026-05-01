@@ -1,0 +1,154 @@
+{
+  "task:feature": [
+    { "id": "criteria_checked", "name": "All done-criteria checkboxes ticked",   "required": true },
+    { "id": "build_passed",     "name": "Build passes",                          "required": true },
+    { "id": "tests_passed",     "name": "Tests pass",                            "required": true },
+    { "id": "code_review",      "name": "code-review performed",                 "required": true },
+    { "id": "context_acknowledged", "name": "context call acknowledged",         "required": true },
+    {
+      "id": "lint_passed",
+      "name": "lint passes (go vet + staticcheck)",
+      "required": false,
+      "conditional": "is_go_project"
+    }
+  ],
+  "task:bugfix": [
+    { "id": "criteria_checked", "name": "All done-criteria checkboxes ticked",   "required": true },
+    { "id": "reproduction",     "name": "Reproduction verified",                 "required": true },
+    { "id": "root_cause",       "name": "Root cause recorded",                   "required": true },
+    { "id": "build_passed",     "name": "Build passes",                          "required": true },
+    { "id": "tests_passed",     "name": "Tests pass",                            "required": true },
+    { "id": "context_acknowledged", "name": "context call acknowledged",         "required": true },
+    {
+      "id": "lint_passed",
+      "name": "lint passes (go vet + staticcheck)",
+      "required": false,
+      "conditional": "is_go_project"
+    }
+  ],
+  "task:refactor": [
+    { "id": "criteria_checked", "name": "All done-criteria checkboxes ticked",   "required": true },
+    {
+      "id": "build_passed",
+      "name": "Build passes",
+      "required": false,
+      "conditional": "has_go_source_changes"
+    },
+    {
+      "id": "tests_passed",
+      "name": "Tests pass",
+      "required": false,
+      "conditional": "has_go_source_changes"
+    },
+    { "id": "code_review",      "name": "code-review performed",                 "required": true },
+    { "id": "context_acknowledged", "name": "context call acknowledged",         "required": true },
+    {
+      "id": "lint_passed",
+      "name": "lint passes (go vet + staticcheck)",
+      "required": false,
+      "conditional": "has_go_source_changes"
+    }
+  ],
+  "task:hotfix": [
+    { "id": "criteria_checked", "name": "All done-criteria checkboxes ticked",   "required": true },
+    { "id": "reproduction",     "name": "Reproduction verified",                 "required": true },
+    { "id": "root_cause",       "name": "Root cause recorded",                   "required": true },
+    { "id": "build_passed",     "name": "Build passes",                          "required": true },
+    { "id": "tests_passed",     "name": "Tests pass",                            "required": true },
+    { "id": "rollback_plan",    "name": "Rollback procedure documented",         "required": true },
+    {
+      "id": "lint_passed",
+      "name": "lint passes (go vet + staticcheck)",
+      "required": false,
+      "conditional": "is_go_project"
+    }
+  ],
+  "task:infra": [
+    { "id": "criteria_checked",      "name": "All done-criteria checkboxes ticked",   "required": true },
+    { "id": "deploy_verified",       "name": "Deployment verified",                   "required": true },
+    { "id": "rollback_plan",         "name": "Rollback procedure confirmed",          "required": true },
+    { "id": "change_record",         "name": "Change record written",                 "required": true },
+    { "id": "context_acknowledged",  "name": "context call acknowledged",             "required": true }
+  ],
+  "task:docs": [
+    { "id": "criteria_checked", "name": "All done-criteria checkboxes ticked",   "required": true },
+    { "id": "doc_review",       "name": "doc-review passes",                     "required": true },
+    { "id": "context_acknowledged", "name": "context call acknowledged",         "required": true }
+  ],
+  "task:test": [
+    { "id": "criteria_checked", "name": "All done-criteria checkboxes ticked",   "required": true },
+    { "id": "tests_passed",     "name": "Tests pass",                            "required": true },
+    { "id": "context_acknowledged", "name": "context call acknowledged",         "required": true },
+    { "id": "coverage_checked", "name": "Coverage checked",                      "required": false }
+  ],
+  "task:chore": [
+    { "id": "criteria_checked", "name": "All done-criteria checkboxes ticked",   "required": true },
+    {
+      "id": "build_passed",
+      "name": "Build passes",
+      "required": false,
+      "conditional": "has_go_source_changes"
+    },
+    {
+      "id": "tests_passed",
+      "name": "Tests pass",
+      "required": false,
+      "conditional": "has_go_source_changes"
+    },
+    {
+      "id": "lint_passed",
+      "name": "lint passes (go vet + staticcheck)",
+      "required": false,
+      "conditional": "has_go_source_changes"
+    }
+  ],
+  "task:spike": [
+    { "id": "criteria_checked",      "name": "All done-criteria checkboxes ticked",   "required": true },
+    { "id": "evaluation_scope",      "name": "Evaluation / review scope stated",      "required": true },
+    { "id": "findings_documented",   "name": "Findings, conclusions, recommendations documented", "required": true },
+    { "id": "context_acknowledged",  "name": "context call acknowledged",             "required": true }
+  ],
+  "sprint:default": [
+    { "id": "phase1_doc_review",  "name": "Phase 1: doc-review --sprint",   "required": true },
+    { "id": "phase2_code_review", "name": "Phase 2: code-review --sprint",  "required": true },
+    { "id": "phase3_work_audit",  "name": "Phase 3: work-audit (implementation + workflow)", "required": true },
+    {
+      "id": "phase4_cross_check",
+      "name": "Phase 4: doc-cross-check",
+      "required": false,
+      "conditional": "has_design_changes"
+    },
+    { "id": "phase5_retro",       "name": "Phase 5: retro (KPT)",           "required": true },
+    { "id": "phase6_learned",     "name": "Phase 6: learned (KB)",          "required": true },
+    { "id": "phase7_dev_deploy",  "name": "Phase 7: Dev deployment verification", "required": true },
+    {
+      "id": "phase8_build",
+      "name": "Phase 8: binary build + install",
+      "required": false,
+      "conditional": "is_prod_sprint"
+    },
+    { "id": "phase9_followup_tasks",  "name": "Phase 9: identify follow-up Tasks",   "required": true },
+    { "id": "phase10_skill_update",   "name": "Phase 10: skill-update review",       "required": true },
+    {
+      "id": "deprecation_cleanup_gate",
+      "name": "Phase 11: Deprecation Cleanup Gate (archive residue check)",
+      "required": false,
+      "conditional": "has_archive_changes"
+    },
+    {
+      "id": "phase_branch_sync",
+      "name": "Phase 12: dev/main gap check",
+      "required": false
+    },
+    {
+      "id": "phase13_track_validate",
+      "name": "Phase 13: Track Validate (Sprint <-> Track drift check)",
+      "required": false
+    }
+  ],
+  "expedition:default": [
+    { "id": "criteria_checked",   "name": "All done-criteria checkboxes ticked",   "required": true },
+    { "id": "build_passed",       "name": "Build passes",                          "required": true },
+    { "id": "tests_passed",       "name": "Tests pass",                            "required": false }
+  ]
+}

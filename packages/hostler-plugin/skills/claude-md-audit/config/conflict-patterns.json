@@ -1,0 +1,30 @@
+{
+  "_comment": "Blacklist of opposing-verb pairs used to detect semantic conflicts.",
+  "_usage": "audit.py's _detect_semantic_conflicts function collects per-token verb sets in each section; if the same token appears on both forbid and allow sides, it's reported as a conflict.",
+  "verb_pairs": [
+    {
+      "id": "use_vs_forbid",
+      "forbid": ["forbidden", "do\\s*not", "must\\s*not", "do\\s*not\\s*use", "no\\s*direct\\s*calls", "shall\\s*not"],
+      "allow": ["please\\s*use", "use\\s+this", "call\\s+this", "please\\s*call", "recommended", "may\\s*use", "use\\s*allowed"]
+    },
+    {
+      "id": "existing_vs_removed",
+      "forbid": ["removed", "deleted", "moved\\s*to\\s*archive", "no\\s*longer\\s*exists", "is\\s*gone"],
+      "allow": ["still\\s*exists", "available", "currently\\s*kept"]
+    }
+  ],
+  "_token_extraction": "Backtick-wrapped inline code or file path patterns. Examples: `task_create`, `cli/install.sh`, `hstl-oss`",
+  "token_regex": "`([A-Za-z0-9_./-]+)`",
+  "_time_context_filters": "Lines containing these markers are subject to false-positive mitigation (because they describe temporal change)",
+  "time_context_markers": [
+    "previously", "in\\s*the\\s*past", "before\\s*Sprint-[0-9]+", "in\\s*Sprint-[0-9]+",
+    "was\\s*removed\\s*in", "earlier\\s*version", "old\\s*version", "before"
+  ],
+  "_exclude_sections": "Sections matching these titles are excluded from detection (migration guides etc. intentionally show before/after side by side)",
+  "exclude_section_patterns": [
+    "migration", "change\\s*history", "history",
+    "deprecated", "archive", "retro"
+  ],
+  "_min_section_distance": "When two mentions are in different sections, distance is measured. Negative (-1) means unlimited — always detect within the same document. Positive values detect only within that distance. Policy contradictions within the same section should be detected unconditionally, so unlimited is correct.",
+  "min_section_distance": -1
+}

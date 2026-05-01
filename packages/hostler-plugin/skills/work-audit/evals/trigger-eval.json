@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Run a full work-quality audit on the previous sprint. Check Task status, commit format, and checkbox completion.",
+    "should_trigger": true
+  },
+  {
+    "query": "Can it detect a done Task whose result section only says 'fill in after completion'?",
+    "should_trigger": true
+  },
+  {
+    "query": "Warn me if a done Task is missing its Result section.",
+    "should_trigger": true
+  },
+  {
+    "query": "Confirm that work-audit must NOT execute auto-fix actions like ruff --fix or eslint --fix.",
+    "should_trigger": true
+  },
+  {
+    "query": "Check whether the last 7 days of work conformed to the hstl-oss workflow.",
+    "should_trigger": true
+  },
+  {
+    "query": "Audit the entire current sprint — verify unchecked checkboxes on done Tasks and missing commit references.",
+    "should_trigger": true
+  },
+  {
+    "query": "Check whether the work was done correctly — build pass, test results, doc updates all in one go.",
+    "should_trigger": true
+  },
+  {
+    "query": "Check whether any sprint is missing a retrospective.",
+    "should_trigger": true
+  },
+  {
+    "query": "Run an implementation audit — find inconsistencies between code changes and Task docs.",
+    "should_trigger": true
+  },
+  {
+    "query": "Run work-audit with --since=14 days. Include commit-message convention compliance.",
+    "should_trigger": true
+  },
+  {
+    "query": "Tell me which Task files are missing frontmatter.",
+    "should_trigger": false
+  },
+  {
+    "query": "Cross-validate the design docs — verify Feature ID consistency.",
+    "should_trigger": false
+  },
+  {
+    "query": "Create a new Task — implement the ML inference engine.",
+    "should_trigger": false
+  },
+  {
+    "query": "Mark this sprint complete.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a code review on the WebSocket module changes.",
+    "should_trigger": false
+  },
+  {
+    "query": "Find broken links across docs/03-design/.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run the sprint retrospective and capture lessons from the previous sprint.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a doc-quality check on SPRINT.md to detect placeholders.",
+    "should_trigger": false
+  },
+  {
+    "query": "What's the current project status?",
+    "should_trigger": false
+  },
+  {
+    "query": "Record this lesson: be careful with circular references when serializing Actor state.",
+    "should_trigger": false
+  }
+]

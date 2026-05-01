@@ -1,0 +1,45 @@
+{
+  "_comment": "Deprecated-token blacklist — claude-md-audit detects these in project docs",
+  "tokens": [
+    {
+      "pattern": "task_id_next",
+      "removed_in": "(historical)",
+      "replacement": "auto-issued internally by hstl-oss task create (no separate tool)",
+      "severity": "high"
+    },
+    {
+      "pattern": "task-id\\.sh",
+      "removed_in": "(historical)",
+      "replacement": "moved to archive, use hstl-oss task create",
+      "severity": "high"
+    },
+    {
+      "pattern": "cli/install\\.sh",
+      "removed_in": "never existed",
+      "replacement": "cd cli && make install",
+      "severity": "high"
+    },
+    {
+      "pattern": "collect-status\\.sh",
+      "removed_in": "(historical)",
+      "replacement": "hstl-oss context CLI",
+      "severity": "medium"
+    },
+    {
+      "pattern": "sprint-transition\\.sh",
+      "removed_in": "(historical)",
+      "replacement": "hstl-oss sprint start / hstl-oss sprint complete CLI",
+      "severity": "medium"
+    }
+  ],
+  "exclude_paths": [
+    "archive/",
+    "works/",
+    "docs/07-knowledge/",
+    "docs/06-reports/",
+    "docs/00-project/plans/",
+    ".git/",
+    "CHANGELOG.md",
+    "skills/claude-md-audit/config/"
+  ]
+}

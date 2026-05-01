@@ -1,0 +1,31 @@
+{
+  "_description": "Allowlist for the work-audit Q26 legacy duplicate-file detection.",
+  "_usage": "Basenames listed here are excluded from Q26 detection. Use for intentional shadow copies, template-vs-instance pairs, project-vs-external example files, etc.",
+  "_format": {
+    "allowlist": "{basename: reason}",
+    "path_hints": "Exclude by path pattern (substring match)"
+  },
+  "allowlist": {
+    "README.md": "Legitimate to exist in every directory",
+    "INDEX.md": "Legitimate to exist in archive/, docs/07-knowledge/, etc.",
+    "SKILL.md": "Required file under each skills/{name}/",
+    "SPRINT.md": "Required file under each works/sprints/{state}/{id}/",
+    "BACKLOG.md": "Single instance under works/tasks/ (not a real duplicate)",
+    ".gitignore": "Per-directory scope separation is legitimate",
+    "go.mod": "Single under cli/",
+    "go.sum": "Single under cli/",
+    "default.md": "Legitimate under skills/*/templates/",
+    "trigger-eval.json": "Legitimate under each skill's evals",
+    "config.yaml": "Multiple project config locations are allowed"
+  },
+  "path_hints": [
+    "archive/",
+    "works/sprints/completed/",
+    "works/sprints/backlog/",
+    "docs/08-references/research/",
+    "node_modules/",
+    ".git/",
+    "bin/",
+    "templates/"
+  ]
+}

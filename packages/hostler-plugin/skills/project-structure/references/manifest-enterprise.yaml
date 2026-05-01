@@ -1,0 +1,64 @@
+# Enterprise Project Manifest
+# Standard structure for large-scale enterprise projects
+# See project-structure SKILL.md §Manifests
+
+name: enterprise
+description: Large enterprise project — team-scale, operations specs required
+
+required_dirs:
+  - path: docs/00-project
+    description: Project definition (PDD, roadmap)
+    required_files:
+      - pdd.md
+      - roadmap.md
+  - path: docs/01-requirements
+    description: Requirements (SRS, FRS, NFR)
+    required_files:
+      - FRS.md
+  - path: docs/02-architecture
+    description: Architecture decisions and views (includes ADRs)
+    pattern: true  # at least one file matching the ADR-NNN-*.md pattern
+    file_pattern: "ADR-[0-9][0-9][0-9]-*.md"
+  - path: docs/03-design
+    description: Detailed design (domain, data model, API)
+  - path: docs/04-guides
+    description: Development / operations guides
+    required_subdirs:
+      - development
+      - operations
+  - path: docs/05-operations
+    description: Operations specs (SLO, FMA, Runbook, monitoring)
+    required_files:
+      - slo-definitions.md
+    optional_files:
+      - failure-mode-analysis.md
+      - alert-slo-verification.md
+      - audit-event-catalog.md
+      - backfill-operability.md
+    required_subdirs:
+      - runbooks
+    optional_subdirs:
+      - monitoring
+      - data-management
+  - path: docs/06-reports
+    description: Reports (analysis, measurements, checklists, audits, spikes)
+    optional_subdirs:
+      - analysis
+      - audits
+      - measurements
+      - checklists
+      - spikes
+  - path: docs/07-knowledge
+    description: Lessons-learned KB
+    required_subdirs:
+      - mistakes
+      - architecture
+  - path: docs/08-references
+    description: External reference materials
+
+template_ref: doc-templates  # references the document content standard skill
+
+notes:
+  - "ADRs go under docs/02-architecture/ADR-NNN-title.md"
+  - "SLO/FMA/DR are required under docs/05-operations/"
+  - "KB cards should include the violation_patterns frontmatter field"

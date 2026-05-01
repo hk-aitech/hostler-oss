@@ -1,0 +1,55 @@
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - govet
+    - staticcheck
+    - unused
+    - ineffassign
+  settings:
+    govet:
+      enable:
+        - shadow   # detect named-return shadowing and := redeclaration
+    staticcheck:
+      checks:
+        - "all"
+        - "-ST1005"   # error-string casing — relaxed for now
+        - "-ST1020"   # godoc comment style — relaxed for now
+        - "-ST1021"   # godoc comment style — relaxed for now
+        - "-SA9003"   # empty branch — intentional placeholder in tests
+        - "-QF1001"   # De Morgan's law — readability preference
+        - "-QF1003"   # tagged switch — readability preference
+        - "-QF1012"   # fmt.Fprintf — readability preference
+    errcheck:
+      exclude-functions:
+        # DB/IO close operations — errors from Close are generally non-critical
+        - "(*database/sql.Rows).Close"
+        - "(*database/sql.DB).Close"
+        - "(*database/sql.Stmt).Close"
+        - "(*database/sql.Tx).Rollback"
+        - "(*encoding/json.Encoder).Close"
+        # Test environment setup
+        - "os.Setenv"
+        - "os.Unsetenv"
+        - "os.WriteFile"
+        - "os.MkdirAll"
+
+  exclusions:
+    rules:
+      # errcheck in test files — test failures are caught by t.Fatal/t.Error
+      - path: "_test\\.go"
+        linters:
+          - errcheck
+      # Suppress the common `if err := ...` shadow false positive (Go idiom).
+      # Named-return / function-level shadowing is still flagged.
+      - linters:
+          - govet
+        text: "shadow: declaration of \"err\" shadows declaration"
+      # SA5011 in test files: `t.Fatal()` makes the following lines unreachable
+      # but staticcheck flags them. Suppress in test files only.
+      - path: "_test\\.go"
+        linters:
+          - staticcheck
+        text: "SA5011"

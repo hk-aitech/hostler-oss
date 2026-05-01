@@ -1,0 +1,22 @@
+[
+  {"query": "How does the SessionStart hook work? Explain what context is loaded at session start", "should_trigger": true},
+  {"query": "I'm curious about the context engineering strategy — what info is auto-injected per session?", "should_trigger": true},
+  {"query": "How is memory preserved across sessions? Explain the relationship between MEMORY.md and CURRENT-FOCUS.md", "should_trigger": true},
+  {"query": "I want to understand the hook architecture — what each of PreToolUse, PostToolUse, SessionStart does", "should_trigger": true},
+  {"query": "How does auto memory work? What gets saved at session end and how is it loaded in the next session?", "should_trigger": true},
+  {"query": "What is CURRENT-FOCUS.md? Why do we read it at session start, and how is it updated?", "should_trigger": true},
+  {"query": "Session context is huge and wastes tokens — is there a context optimization strategy?", "should_trigger": true},
+  {"query": "Explain the full session-management flow in hstl-oss, including hook execution order", "should_trigger": true},
+  {"query": "What mechanism automatically inherits the previous session's work state when a new session begins?", "should_trigger": true},
+  {"query": "I want to customize hook configuration — can I make SessionStart load only specific docs?", "should_trigger": true},
+  {"query": "I'm new to the hstl-oss plugin — give me the default workflow and command list", "should_trigger": false},
+  {"query": "What is the --ultrathink flag? Recommend a flag combination", "should_trigger": false},
+  {"query": "Show me the current project status — sprint progress and the next work items", "should_trigger": false},
+  {"query": "I'm setting up the project from scratch — guide me from dotnet SDK install to build", "should_trigger": false},
+  {"query": "I want to add a hook in settings.json — block dangerous commands via PreToolUse hook", "should_trigger": false},
+  {"query": "Summarize the project status — where am I and what's left", "should_trigger": false},
+  {"query": "I'm starting a Task — load the Task context", "should_trigger": false},
+  {"query": "Run the sprint-start procedure — backlog to active and validate docs", "should_trigger": false},
+  {"query": "Show the full flag list — --uc, --c7, etc.", "should_trigger": false},
+  {"query": "What should I do next? Recommend by priority", "should_trigger": false}
+]

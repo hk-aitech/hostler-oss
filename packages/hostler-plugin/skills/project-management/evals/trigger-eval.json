@@ -1,0 +1,14 @@
+[
+  {"query": "Show me the project status", "should_trigger": true},
+  {"query": "I want to pass context to a subagent", "should_trigger": true},
+  {"query": "Summarize the project context", "should_trigger": true},
+  {"query": "Brief me on the project", "should_trigger": true},
+  {"query": "what's the project status?", "should_trigger": true},
+  {"query": "Tell me the current project status", "should_trigger": true},
+  {"query": "Where am I up to?", "should_trigger": true},
+  {"query": "What should I do?", "should_trigger": true},
+  {"query": "Create a Task", "should_trigger": false},
+  {"query": "Mark the sprint complete", "should_trigger": false},
+  {"query": "Show me the detailed progress of the previous sprint", "should_trigger": false},
+  {"query": "Start a code review", "should_trigger": false}
+]

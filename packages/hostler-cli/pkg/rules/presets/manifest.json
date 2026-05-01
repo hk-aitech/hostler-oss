@@ -1,0 +1,9 @@
+{
+  "revision": "2026-04-15-1",
+  "built_at": "2026-04-15",
+  "preset_count": 3,
+  "rule_count": 46,
+  "presets": ["recommended", "strict", "relaxed"],
+  "source": "hostler",
+  "description": "Built-in preset bundle for the Rule Engine Phase 1 (harness_defaults.json + sprint:default bridge)"
+}

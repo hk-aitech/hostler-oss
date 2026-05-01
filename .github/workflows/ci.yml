@@ -1,0 +1,91 @@
+name: CI
+
+# Build, vet, and test on every push and pull request.
+# The release workflow (`release.yml`) handles tagged builds + GitHub Releases
+# and is gated on a passing CI run.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  go:
+    name: Go ${{ matrix.go-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        go-version: ['1.24']
+    defaults:
+      run:
+        working-directory: packages/hostler-cli
+    env:
+      GOTOOLCHAIN: auto
+      CGO_ENABLED: 0
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+          cache-dependency-path: packages/hostler-cli/go.sum
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go build
+        run: go build ./...
+
+      - name: go test
+        run: go test -count=1 -race ./...
+
+  shell:
+    name: Shell scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Lint installer + plugin hooks
+        run: |
+          shellcheck scripts/install.sh
+          # Plugin hook scripts use one explicit literal `$PATH` print —
+          # SC2016 is allowed there. Everything else must lint clean.
+          shellcheck \
+            -e SC2016 \
+            packages/hostler-plugin/hooks/ensure-cli.sh \
+            packages/hostler-plugin/hooks/session-context.sh \
+            packages/hostler-plugin/hooks/subagent-context-ack.sh \
+            packages/hostler-plugin/hooks/pre-commit-check.sh
+
+  json-yaml:
+    name: JSON / YAML validity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Validate JSON
+        run: |
+          for f in $(find . -name '*.json' -not -path './node_modules/*' -not -path './.git/*'); do
+            python -c "import json,sys; json.load(open('$f'))" || { echo "FAIL: $f"; exit 1; }
+          done
+
+      - name: Validate YAML
+        run: |
+          pip install pyyaml
+          for f in $(find . -name '*.yml' -o -name '*.yaml' -not -path './node_modules/*' -not -path './.git/*'); do
+            python -c "import yaml,sys; yaml.safe_load(open('$f'))" || { echo "FAIL: $f"; exit 1; }
+          done

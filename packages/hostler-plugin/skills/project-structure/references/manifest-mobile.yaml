@@ -1,0 +1,43 @@
+# Mobile Project Manifest
+# Standard structure for mobile app projects (iOS / Android / Flutter)
+
+name: mobile
+description: Mobile app project — UX-first, focused on API / testing / release
+
+required_dirs:
+  - path: docs/00-project
+    description: Project definition (PDD, roadmap)
+    required_files:
+      - pdd.md
+      - roadmap.md
+  - path: docs/01-design
+    description: UX design (wireframes, user flows, components)
+    required_subdirs:
+      - ux
+  - path: docs/02-architecture
+    description: Architecture decisions (ADR, platform selection)
+    pattern: true
+    file_pattern: "ADR-[0-9][0-9][0-9]-*.md"
+  - path: docs/03-api
+    description: API design (endpoints, auth, payloads)
+  - path: docs/04-guides
+    description: Development guides (environment setup, build, deploy)
+    required_subdirs:
+      - development
+  - path: docs/05-testing
+    description: Testing strategy (unit, UI, E2E, performance)
+  - path: docs/06-release
+    description: Release process (App Store, Play Store, versioning)
+  - path: docs/07-knowledge
+    description: Lessons-learned KB
+
+optional_dirs:
+  - path: docs/08-references
+    description: External references (platform API docs)
+
+template_ref: doc-templates
+
+notes:
+  - "Concentrate UX design under docs/01-design/ux/ (UX is the core of mobile design)"
+  - "Keep API docs under docs/03-api/ (the backend contract)"
+  - "Release checklist: docs/06-release/release-checklist-vX.Y.md"

@@ -1,0 +1,500 @@
+package config
+
+import (
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+)
+
+// validYAMLMinimal is a minimal valid project-config.yaml sample.
+const validYAMLMinimal = `version: "2.0.0"
+project:
+  key: test-project
+`
+
+// validYAMLFull is an extended sample exercising several sections (v2 only).
+const validYAMLFull = `version: "2.0.0"
+project:
+  key: test-project
+platform:
+  kind: dotnet
+  dotnet:
+    bounded_contexts:
+      - id: COL
+        name: Collection
+        project: Test.Collection
+        description: Collection BC
+deployment_groups:
+  - id: web
+    name: Web Frontend
+    path: LocalDev -> Prod
+    process: port 8080
+tasks:
+  events:
+    start:
+      - "1 Task = 1 Commit"
+    complete:
+      - "Result section required"
+  result_check:
+    policy: strict
+    section_titles:
+      - Result
+      - Deliverables
+briefing:
+  sections:
+    - id: identity
+      enabled: true
+      source: CLAUDE.md
+      type: static
+`
+
+// invalidYAMLTypeMismatch is a type-mismatch sample. The YAML -> ProjectConfig
+// unmarshal step blocks it before reaching the validator. This confirms the
+// double-defence pattern works.
+const invalidYAMLTypeMismatch = `version: "2.0.0"
+project:
+  key:
+    - should_be_string_not_array
+`
+
+// invalidYAMLExtraField tests the additionalProperties=false rejection path
+// when an undefined field appears.
+const invalidYAMLExtraField = `version: "2.0.0"
+project:
+  key: test-project
+  unknown_field: "should fail"
+`
+
+func TestSchemaForProjectConfig_InferenceSucceeds(t *testing.T) {
+	ResetValidatorCache()
+	schema, err := SchemaForProjectConfig()
+	if err != nil {
+		t.Fatalf("SchemaForProjectConfig failed: %v", err)
+	}
+	if schema == nil {
+		t.Fatal("schema is nil")
+	}
+	if _, ok := schema.Properties["version"]; !ok {
+		t.Error("version property missing")
+	}
+	if _, ok := schema.Properties["project"]; !ok {
+		t.Error("project property missing")
+	}
+}
+
+func TestValidateProjectConfigYAML_ValidMinimal(t *testing.T) {
+	ResetValidatorCache()
+	cfg, verr, err := ValidateProjectConfigYAML([]byte(validYAMLMinimal))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr != nil {
+		t.Errorf("validation failed (expected nil): %v", verr)
+	}
+	if cfg == nil {
+		t.Fatal("cfg is nil")
+	}
+	if cfg.Project.Key != "test-project" {
+		t.Errorf("Project.Key=%q (expected: test-project)", cfg.Project.Key)
+	}
+}
+
+func TestValidateProjectConfigYAML_ValidFull(t *testing.T) {
+	ResetValidatorCache()
+	cfg, verr, err := ValidateProjectConfigYAML([]byte(validYAMLFull))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr != nil {
+		t.Errorf("validation failed (expected nil): %v", verr)
+	}
+	bcs := cfg.GetBoundedContexts()
+	if len(bcs) != 1 || bcs[0].ID != "COL" {
+		t.Errorf("BoundedContexts parse failed: %+v", bcs)
+	}
+	rc := cfg.GetTaskResultCheck()
+	if rc == nil || rc.Policy != "strict" {
+		t.Errorf("TaskResultCheck parse failed: %+v", rc)
+	}
+}
+
+func TestValidateProjectConfigYAML_TypeMismatch_BlockedAtYAMLStage(t *testing.T) {
+	// Type mismatches are caught earlier at the YAML -> ProjectConfig
+	// unmarshal stage. yaml.v3, not the validator, raises the error, so
+	// err != nil is expected. This is the intended behaviour — a
+	// double-defence layer (yaml unmarshal + schema validate).
+	ResetValidatorCache()
+	_, _, err := ValidateProjectConfigYAML([]byte(invalidYAMLTypeMismatch))
+	if err == nil {
+		t.Fatal("type mismatch should be blocked by yaml unmarshal")
+	}
+	if !strings.Contains(err.Error(), "cannot unmarshal") {
+		t.Errorf("yaml unmarshal error message differs from expected: %v", err)
+	}
+}
+
+func TestValidateProjectConfigYAML_RejectsExtraField(t *testing.T) {
+	ResetValidatorCache()
+	_, verr, err := ValidateProjectConfigYAML([]byte(invalidYAMLExtraField))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr == nil {
+		t.Fatal("additionalProperties=false violation should be detected")
+	}
+}
+
+// reminders field removed. Earlier T204 reminders-key enum tests no longer
+// apply. tasks.events / sprints.events + templates/ is the SSOT.
+
+func TestValidateProjectConfigYAML_EmptyFile(t *testing.T) {
+	ResetValidatorCache()
+	cfg, verr, err := ValidateProjectConfigYAML([]byte(""))
+	if err != nil {
+		t.Fatalf("empty file parse failed: %v", err)
+	}
+	if verr != nil {
+		t.Errorf("empty file should skip validation: %v", verr)
+	}
+	if cfg == nil {
+		t.Fatal("empty file should still return a cfg pointer")
+	}
+}
+
+func TestLoadProjectConfigValidated_RealFile(t *testing.T) {
+	// Validate the actual project-config.yaml from the project root.
+	// fileutil.GetProjectRoot() handles discovery, so no extra setup is needed.
+	ResetValidatorCache()
+	cfg, verr, err := LoadProjectConfigValidated()
+	if err != nil {
+		t.Fatalf("LoadProjectConfigValidated: %v", err)
+	}
+	if cfg == nil {
+		t.Skip("no project-config.yaml at project root — skipping")
+	}
+	if verr != nil {
+		t.Errorf("real file validation failed: %v", verr)
+	}
+}
+
+func TestSchemaFile_ExistsAndValidJSON(t *testing.T) {
+	// Confirm the file generated by cmd/gen-schema exists and parses.
+	ResetValidatorCache()
+	root, err := findRepoRootForTest()
+	if err != nil {
+		t.Skipf("repo root lookup failed: %v", err)
+	}
+	schemaPath := filepath.Join(root, "schemas", "project-config", "v2.0.0.schema.json")
+	data, err := os.ReadFile(schemaPath)
+	if err != nil {
+		t.Fatalf("read schema file failed (%s): %v", schemaPath, err)
+	}
+	if len(data) < 100 {
+		t.Errorf("schema file is too small (%d bytes)", len(data))
+	}
+	if !strings.Contains(string(data), "\"properties\"") {
+		t.Error("schema file missing the properties key")
+	}
+	if !strings.Contains(string(data), "\"$schema\"") {
+		t.Error("schema file missing the $schema meta")
+	}
+}
+
+// findRepoRootForTest discovers the repo root from a test. Similar to
+// findRepoRoot in cmd/gen-schema but used directly from the test.
+// -- Platform Tagged Union validation tests --
+
+const validYAMLPlatformGo = `version: "2.0.0"
+project:
+  key: test-go
+platform:
+  kind: go
+  go:
+    module: example.com/test
+    lint: [gofmt, govet]
+`
+
+const validYAMLPlatformDotnet = `version: "2.0.0"
+project:
+  key: test-dotnet
+platform:
+  kind: dotnet
+  dotnet:
+    solution_file: Test.slnx
+    bounded_contexts:
+      - id: COL
+        name: Collection
+`
+
+const invalidYAMLPlatformKindMismatch = `version: "2.0.0"
+project:
+  key: test
+platform:
+  kind: go
+  dotnet:
+    solution_file: Mismatch.slnx
+`
+
+const invalidYAMLPlatformUnknownKind = `version: "2.0.0"
+project:
+  key: test
+platform:
+  kind: rust
+`
+
+func TestValidate_T208_Platform_Go_Valid(t *testing.T) {
+	cfg, verr, err := ValidateProjectConfigYAML([]byte(validYAMLPlatformGo))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr != nil {
+		t.Errorf("Go Platform validation failed (expected nil): %v", verr)
+	}
+	if !cfg.IsGo() {
+		t.Errorf("IsGo() = false (expected: true)")
+	}
+	if cfg.Platform == nil || cfg.Platform.Go == nil {
+		t.Fatalf("Platform.Go parse failed")
+	}
+	if cfg.Platform.Go.Module != "example.com/test" {
+		t.Errorf("Go.Module = %q (expected: example.com/test)", cfg.Platform.Go.Module)
+	}
+	if len(cfg.Platform.Go.Lint) != 2 {
+		t.Errorf("Go.Lint length = %d (expected: 2)", len(cfg.Platform.Go.Lint))
+	}
+}
+
+func TestValidate_T208_Platform_Dotnet_Valid(t *testing.T) {
+	cfg, verr, err := ValidateProjectConfigYAML([]byte(validYAMLPlatformDotnet))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr != nil {
+		t.Errorf("Dotnet Platform validation failed (expected nil): %v", verr)
+	}
+	if !cfg.IsDotnet() {
+		t.Errorf("IsDotnet() = false (expected: true)")
+	}
+	if cfg.Platform == nil || cfg.Platform.Dotnet == nil {
+		t.Fatalf("Platform.Dotnet parse failed")
+	}
+	// Confirm GetBoundedContexts prefers Platform.
+	bcs := cfg.GetBoundedContexts()
+	if len(bcs) != 1 || bcs[0].ID != "COL" {
+		t.Errorf("GetBoundedContexts() = %+v (expected: 1 entry COL)", bcs)
+	}
+	if cfg.GetSolutionFile() != "Test.slnx" {
+		t.Errorf("GetSolutionFile() = %q (expected: Test.slnx)", cfg.GetSolutionFile())
+	}
+}
+
+func TestValidate_T208_Platform_KindMismatch(t *testing.T) {
+	cfg, verr, err := ValidateProjectConfigYAML([]byte(invalidYAMLPlatformKindMismatch))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr == nil {
+		t.Fatalf("Platform kind/nested mismatch validation failed (expected verr != nil)")
+	}
+	if !strings.Contains(verr.Message, "platform.kind=\"go\"") ||
+		!strings.Contains(verr.Message, "platform.dotnet") {
+		t.Errorf("error message does not mention the kind mismatch: %s", verr.Message)
+	}
+	// cfg should still be returned (warn-mode caller support).
+	if cfg == nil {
+		t.Errorf("cfg is nil (expected: returned)")
+	}
+}
+
+func TestValidate_T208_Platform_UnknownKind(t *testing.T) {
+	_, verr, err := ValidateProjectConfigYAML([]byte(invalidYAMLPlatformUnknownKind))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr == nil {
+		t.Fatalf("unknown kind validation failed (expected verr != nil)")
+	}
+	// Multi-error collection means unknown kind may be in Causes.
+	// verr.Error() formats summary + Causes, so check via that path.
+	if !strings.Contains(verr.Error(), "rust") {
+		t.Errorf("error message must include the actual kind value: %s", verr.Error())
+	}
+}
+
+// TestValidate_T244_SchemaEnum_PlatformKind verifies that the kind enum
+// constraint is injected at the JSON Schema stage. Independent of the
+// runtime check (T208), it blocks invalid kinds early in the schema —
+// supporting IDE autocomplete and CI drift prevention.
+func TestValidate_T244_SchemaEnum_PlatformKind(t *testing.T) {
+	schema, err := SchemaForProjectConfig()
+	if err != nil {
+		t.Fatalf("schema generation failed: %v", err)
+	}
+	platform, ok := schema.Properties["platform"]
+	if !ok || platform == nil || platform.Properties == nil {
+		t.Fatal("schema.Properties[platform] missing")
+	}
+	kind, ok := platform.Properties["kind"]
+	if !ok || kind == nil {
+		t.Fatal("platform.properties.kind missing")
+	}
+	if len(kind.Enum) != 4 {
+		t.Errorf("platform.kind.enum length = %d (expected: 4)", len(kind.Enum))
+	}
+	want := map[string]bool{"go": true, "dotnet": true, "python": true, "node": true}
+	for _, v := range kind.Enum {
+		s, ok := v.(string)
+		if !ok {
+			t.Errorf("enum entry is not a string: %T = %v", v, v)
+			continue
+		}
+		if !want[s] {
+			t.Errorf("unexpected enum value: %q", s)
+		}
+		delete(want, s)
+	}
+	if len(want) > 0 {
+		t.Errorf("missing enum values: %v", want)
+	}
+}
+
+// TestValidate_T208_NoPlatform_BackwardCompat — removed in T402:
+// validYAMLFull is now v2-only (platform.dotnet required), so the
+// backward-compat scenario itself is no longer applicable.
+
+// -- validate-config version major fail-fast --
+//
+// Previously: ValidateProjectConfigYAML did not call
+// checkVersionMajor, so a manually edited version: "3.0.0"
+// future-major file was reported as "valid" while runtime fail-fast
+// blocked it later, causing user confusion. Fix: add the same check to
+// the validator path.
+
+func TestValidateProjectConfigYAML_T272_FutureMajor_Blocked(t *testing.T) {
+	ResetValidatorCache()
+	const futureMajor = `version: "3.0.0"
+project:
+  key: test-future-major
+`
+	cfg, verr, err := ValidateProjectConfigYAML([]byte(futureMajor))
+	if err != nil {
+		t.Fatalf("parse error (expected: nil, validation should fail): %v", err)
+	}
+	if verr == nil {
+		t.Fatal("version major=3 was not blocked (T272 regression)")
+	}
+	if !strings.Contains(verr.Message, "major mismatch") {
+		t.Errorf("verr is missing 'major mismatch' message: %v", verr)
+	}
+	if cfg == nil {
+		t.Error("cfg is nil — parsing should succeed (validator intercepts)")
+	}
+}
+
+func TestValidateProjectConfigYAML_T272_SameMajor_Passes(t *testing.T) {
+	ResetValidatorCache()
+	const sameMajor = `version: "2.5.1"
+project:
+  key: test-same-major
+`
+	_, verr, err := ValidateProjectConfigYAML([]byte(sameMajor))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr != nil {
+		t.Errorf("same major (2.5.1) was blocked — expected pass, got: %v", verr)
+	}
+}
+
+func TestValidateProjectConfigYAML_T272_EmptyVersion_Passes(t *testing.T) {
+	// version unset (still allowed for backward compat).
+	ResetValidatorCache()
+	const noVersion = `project:
+  key: test-no-version
+`
+	_, verr, err := ValidateProjectConfigYAML([]byte(noVersion))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr != nil {
+		t.Errorf("empty version was blocked — backward compat broken: %v", verr)
+	}
+}
+
+// =============================================================================
+// ValidateProjectConfigYAML multi-error collection
+// =============================================================================
+
+// invalidYAMLMultipleErrors triggers two violations from a single file —
+// (1) version major mismatch, (2) platform.kind=rust (unknown).
+const invalidYAMLMultipleErrors = `version: "1.0.0"
+project:
+  key: test
+platform:
+  kind: rust
+`
+
+// TestT311_ValidateProjectConfigYAML_MultiError_Collection verifies that
+// every violation found in one file lands in Causes.
+func TestT311_ValidateProjectConfigYAML_MultiError_Collection(t *testing.T) {
+	_, verr, err := ValidateProjectConfigYAML([]byte(invalidYAMLMultipleErrors))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr == nil {
+		t.Fatalf("multi-error collection failed (expected verr != nil)")
+	}
+	if len(verr.Causes) < 2 {
+		t.Errorf("Causes count = %d (expected: 2 or more)", len(verr.Causes))
+	}
+	// Error() formatting must include the summary plus each cause.
+	out := verr.Error()
+	if !strings.Contains(out, "rust") {
+		t.Errorf("Error() missing platform.kind=rust violation: %s", out)
+	}
+	if !strings.Contains(out, "version") {
+		t.Errorf("Error() missing version violation: %s", out)
+	}
+}
+
+// TestT311_ValidateProjectConfigYAML_SingleError_BackwardCompat verifies
+// that when only one violation is found, Causes stays nil and existing
+// formatting works. The extra-field sample produces a single
+// schema-stage finding (version/platform pass), which targets the
+// backward-compat path.
+func TestT311_ValidateProjectConfigYAML_SingleError_BackwardCompat(t *testing.T) {
+	_, verr, err := ValidateProjectConfigYAML([]byte(invalidYAMLExtraField))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if verr == nil {
+		t.Fatalf("single error (expected verr != nil)")
+	}
+	if len(verr.Causes) != 0 {
+		t.Errorf("single error but Causes is non-nil: %d entries", len(verr.Causes))
+	}
+	// Original formatting: returns Message only, with no "see Causes" summary.
+	if strings.Contains(verr.Error(), "see Causes") {
+		t.Errorf("single error included multi-error summary phrasing: %s", verr.Error())
+	}
+}
+
+func findRepoRootForTest() (string, error) {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return "", err
+	}
+	dir := cwd
+	for i := 0; i < 16; i++ {
+		if _, err := os.Stat(filepath.Join(dir, "mcp-server", "go.mod")); err == nil {
+			return dir, nil
+		}
+		parent := filepath.Dir(dir)
+		if parent == dir {
+			break
+		}
+		dir = parent
+	}
+	return "", os.ErrNotExist
+}

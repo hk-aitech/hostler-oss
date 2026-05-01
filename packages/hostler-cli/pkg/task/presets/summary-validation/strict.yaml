@@ -1,0 +1,33 @@
+# summary_validation: strict preset (default).
+# Enables every heuristic plus the LLM judge. Strongly blocks the
+# "AI/user produces a meaningless one-line summary" Task-creation
+# pattern. False positives on legitimate summaries are accepted
+# (expected <= 10%). This is the default; relax via
+# `summary_validation.preset: moderate|lenient|off` in
+# project-config.yaml.
+preset: strict
+min_unique_words: 5
+forbidden_solo_keywords:
+  - "fix"
+  - "update"
+  - "refactor"
+  - "cleanup"
+  - "test"
+  - "tidy"
+  - "work"
+  - "add"
+  - "improve"
+  - "implement"
+required_purpose_connectors:
+  - "because"
+  - "to fix"
+  - "so that"
+  - "since"
+  - "due to"
+  - "in order to"
+  - "to address"
+  - "to ensure"
+  - "to prevent"
+  - "to verify"
+  - "to improve"
+enable_llm_judge: true

@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Start the next sprint — transition from backlog to active and verify design readiness.",
+    "should_trigger": true
+  },
+  {
+    "query": "Mark this sprint complete — all Tasks are done.",
+    "should_trigger": true
+  },
+  {
+    "query": "What's the current sprint progress? How many tasks remain?",
+    "should_trigger": true
+  },
+  {
+    "query": "I want to plan the upcoming sprint — suggest how to break it into Tasks.",
+    "should_trigger": true
+  },
+  {
+    "query": "Start the sprint — I'm moving on to the next one.",
+    "should_trigger": true
+  },
+  {
+    "query": "Mark the sprint complete and chain into the retrospective.",
+    "should_trigger": true
+  },
+  {
+    "query": "How many sprints are left? Show me the overall progress.",
+    "should_trigger": true
+  },
+  {
+    "query": "Create the next sprint — first sprint of Phase 2. Goal: build the strategy-engine foundation.",
+    "should_trigger": true
+  },
+  {
+    "query": "Show me the active sprint status — also list any Tasks with blockers.",
+    "should_trigger": true
+  },
+  {
+    "query": "Move the sprint forward and tell me what's next.",
+    "should_trigger": true
+  },
+  {
+    "query": "Create a Task — implement WebSocket reconnect logic.",
+    "should_trigger": false
+  },
+  {
+    "query": "Mark the task complete.",
+    "should_trigger": false
+  },
+  {
+    "query": "Tell me the current project status — where am I?",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a work-audit on this sprint's workflow compliance.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run the sprint retrospective — gather this sprint's lessons.",
+    "should_trigger": false
+  },
+  {
+    "query": "Convert a Phase to a Sprint — I need to plan implementation.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a Task-file frontmatter check — verify placeholders.",
+    "should_trigger": false
+  },
+  {
+    "query": "Start a code review on the recent commits.",
+    "should_trigger": false
+  },
+  {
+    "query": "Tell me the Work unit definition — difference between Phase and Sprint.",
+    "should_trigger": false
+  },
+  {
+    "query": "Cross-validate the design docs — Feature ID consistency.",
+    "should_trigger": false
+  }
+]

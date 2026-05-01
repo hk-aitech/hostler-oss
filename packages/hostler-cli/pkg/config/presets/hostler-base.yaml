@@ -1,0 +1,19 @@
+# hostler-base — common-defaults preset shared by every project.
+#
+# This file is embedded into the Go binary and is referenced as `builtin:hostler-base`.
+# Because the extends merge rule grants precedence to later items, this preset
+# is normally placed at the front of the extends array.
+#
+# Includes:
+#   - tasks.result_check default policy (strict, ["Result", "Deliverables"])
+#   - default template paths for tasks.events / sprints.events / sprints.ceremony
+#
+# Project overrides are applied via deep-merge whenever the final
+# project-config.yaml redefines the same key.
+
+tasks:
+  result_check:
+    policy: strict
+    section_titles:
+      - Result
+      - Deliverables

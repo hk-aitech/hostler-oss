@@ -1,0 +1,13 @@
+# summary_validation: moderate preset.
+# Heuristics only, LLM judge disabled. Blocks obviously low-effort
+# summaries while letting middling-quality content pass. Suitable for
+# environments without API keys or where external calls should be
+# minimised.
+preset: moderate
+min_unique_words: 4
+forbidden_solo_keywords:
+  - "fix"
+  - "update"
+  - "tweak"
+required_purpose_connectors: []
+enable_llm_judge: false

@@ -1,0 +1,7 @@
+bin/
+# Test artefacts are handled by the repo-root .gitignore (`**/gate-judgement.jsonl`,
+# etc.); per-package globs avoid duplicating those rules.
+
+.hostler/
+.hstl/
+.hstl-oss/

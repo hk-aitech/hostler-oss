@@ -1,0 +1,84 @@
+{
+  "skill_name": "claude-md-audit",
+  "description": "Trigger eval for claude-md-audit skill. Must trigger on CLAUDE.md audit/measurement/optimization requests and NOT trigger on other memory/skill tasks.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My CLAUDE.md has grown too long — tell me what and how to trim it",
+      "should_trigger": true,
+      "reason": "Explicit CLAUDE.md audit/optimization request"
+    },
+    {
+      "id": 2,
+      "prompt": "Audit my CLAUDE.md against Anthropic 200-line target",
+      "should_trigger": true,
+      "reason": "Direct English trigger with Anthropic target mention"
+    },
+    {
+      "id": 3,
+      "prompt": "Measure CLAUDE.md by section and find migration candidates",
+      "should_trigger": true,
+      "reason": "Measurement + migration candidate request — core function"
+    },
+    {
+      "id": 4,
+      "prompt": "Apply progressive disclosure to slim down CLAUDE.md",
+      "should_trigger": true,
+      "reason": "Progressive disclosure keyword — main use case"
+    },
+    {
+      "id": 5,
+      "prompt": "Check whether skills/learned/SKILL.md description exceeds 250 characters",
+      "should_trigger": false,
+      "reason": "SKILL.md quality check — belongs to measure-skill-quality.py, not CLAUDE.md audit"
+    },
+    {
+      "id": 6,
+      "prompt": "Create a new ddd-design skill",
+      "should_trigger": false,
+      "reason": "Skill creation request — not CLAUDE.md audit"
+    },
+    {
+      "id": 7,
+      "prompt": "Write the Sprint retrospective",
+      "should_trigger": false,
+      "reason": "Retro request — unrelated to CLAUDE.md"
+    },
+    {
+      "id": 8,
+      "prompt": "Where are auto memory files stored?",
+      "should_trigger": false,
+      "reason": "Auto memory question — session-management skill territory, not CLAUDE.md audit"
+    },
+    {
+      "id": 9,
+      "prompt": "Can you also measure the CLAUDE.md of a sibling project at ../other-repo/?",
+      "should_trigger": true,
+      "reason": "Cross-project CLAUDE.md audit — supported via path argument"
+    },
+    {
+      "id": 10,
+      "prompt": "How do I write paths scoping in .claude/rules/?",
+      "should_trigger": false,
+      "reason": "How-to question about rules syntax — reference lookup, not audit"
+    },
+    {
+      "id": 11,
+      "prompt": "Check whether deprecated tokens are still left in the project",
+      "should_trigger": true,
+      "reason": "Task — deprecated token detection is part of CLAUDE.md audit"
+    },
+    {
+      "id": 12,
+      "prompt": "Verify whether removed references like task_id_next are still in the docs",
+      "should_trigger": true,
+      "reason": "Task — specific deprecated token check"
+    },
+    {
+      "id": 13,
+      "prompt": "Check whether CLAUDE.md has both forbid and allow for the same tool",
+      "should_trigger": true,
+      "reason": "Task — semantic conflict detection (contradictory-instruction probe)"
+    }
+  ]
+}

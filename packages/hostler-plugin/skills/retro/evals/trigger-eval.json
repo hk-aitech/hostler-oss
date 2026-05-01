@@ -1,0 +1,22 @@
+[
+  {"query": "This sprint is complete — please run the retrospective. All 8 tasks are done.", "should_trigger": true},
+  {"query": "/retro (historical)", "should_trigger": true},
+  {"query": "Run this sprint's retrospective. We spent a lot of time on the API integration — extract lessons in bulk for next time.", "should_trigger": true},
+  {"query": "Write this sprint's retrospective. Summarize what went well and what should be improved.", "should_trigger": true},
+  {"query": "Capture the lessons learned in this sprint as a retrospective. Both technical and process lessons.", "should_trigger": true},
+  {"query": "Summarize sprint lessons. The sprint was about WebSocket health monitoring.", "should_trigger": true},
+  {"query": "Write the retrospective. The previous sprint had 2 tasks that overran — include a root-cause analysis.", "should_trigger": true},
+  {"query": "I want to run a retrospective after sprint completion. Also record the lessons as KB cards.", "should_trigger": true},
+  {"query": "The sprint just ended — extract its lessons systematically.", "should_trigger": true},
+  {"query": "Run a sprint retrospective. It was the last sprint of Phase 1.", "should_trigger": true},
+  {"query": "Just record this single lesson — about FakeTimeProvider.", "should_trigger": false},
+  {"query": "Start the next sprint.", "should_trigger": false},
+  {"query": "Create a Task — implement a retro-related feature.", "should_trigger": false},
+  {"query": "Show me the sprint progress.", "should_trigger": false},
+  {"query": "Run a work-audit on this sprint's workflow compliance.", "should_trigger": false},
+  {"query": "Start a code review.", "should_trigger": false},
+  {"query": "Tell me the current project status.", "should_trigger": false},
+  {"query": "Cross-validate the design docs.", "should_trigger": false},
+  {"query": "Run a doc-quality check on Task files.", "should_trigger": false},
+  {"query": "Run a sprint review using the rubric.", "should_trigger": false}
+]

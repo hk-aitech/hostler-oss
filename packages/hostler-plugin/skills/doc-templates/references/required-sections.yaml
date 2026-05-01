@@ -1,0 +1,210 @@
+# Required Sections
+# Required and recommended sections per document type
+# Referenced as the validation criteria by the doc-review SKILL.md
+# Validation levels: BLOCK = blocks commit / WARN = warning only / INFO = informational
+
+version: "1.0"
+updated: "2026-04-16"
+
+# ── Common sections (every document type) ──
+common:
+  - heading: "Overview|Introduction|Purpose"
+    level: 2  # h2
+    severity: WARN
+    aliases: ["Overview", "Introduction", "Purpose"]
+    description: First H2 in the document — states what the document covers
+  - heading: "Change History|Changelog"
+    level: 2
+    severity: INFO
+    position: last  # Recommended at the bottom of the document
+    description: Change-history table (date, version, author, description)
+
+# ── Per-type required sections ──
+schemas:
+
+  adr:
+    required:
+      - heading: "Status"
+        level: 2
+        severity: BLOCK
+        aliases: ["Status"]
+      - heading: "Context"
+        level: 2
+        severity: BLOCK
+        aliases: ["Context", "Background"]
+      - heading: "Decision"
+        level: 2
+        severity: BLOCK
+        aliases: ["Decision"]
+      - heading: "Consequences"
+        level: 2
+        severity: BLOCK
+        aliases: ["Consequences", "Impact"]
+    recommended:
+      - heading: "Alternatives"
+        level: 2
+        severity: WARN
+        aliases: ["Alternatives", "Options Considered"]
+
+  runbook:
+    required:
+      - heading: "Symptoms"
+        level: 2
+        severity: BLOCK
+        aliases: ["Symptoms", "Alert Conditions"]
+      - heading: "Diagnosis"
+        level: 2
+        severity: BLOCK
+        aliases: ["Diagnosis", "Triage Steps"]
+      - heading: "Recovery"
+        level: 2
+        severity: BLOCK
+        aliases: ["Recovery", "Resolution Steps"]
+      - heading: "Rollback"
+        level: 2
+        severity: BLOCK
+        aliases: ["Rollback", "Undo Steps"]
+    recommended:
+      - heading: "Escalation"
+        level: 2
+        severity: WARN
+        aliases: ["Escalation", "When to Escalate"]
+      - heading: "Verification"
+        level: 2
+        severity: WARN
+        aliases: ["Verification", "Post-Recovery Check"]
+
+  slo:
+    required:
+      - heading: "Indicator|SLI"
+        level: 2
+        severity: BLOCK
+        aliases: ["Indicator", "SLI", "Service Level Indicator"]
+      - heading: "Objective|SLO"
+        level: 2
+        severity: BLOCK
+        aliases: ["Objective", "SLO", "Service Level Objective"]
+      - heading: "Measurement"
+        level: 2
+        severity: BLOCK
+        aliases: ["Measurement", "How to Measure"]
+    recommended:
+      - heading: "Error Budget"
+        level: 2
+        severity: WARN
+        aliases: ["Error Budget"]
+      - heading: "Alerting"
+        level: 2
+        severity: WARN
+        aliases: ["Alerting", "Alert Rules"]
+
+  fma:
+    required:
+      - heading: "Failure Mode"
+        level: 2
+        severity: BLOCK
+        aliases: ["Failure Mode", "Failure Scenarios"]
+      - heading: "Impact"
+        level: 2
+        severity: BLOCK
+        aliases: ["Impact", "Business Impact"]
+      - heading: "Detection"
+        level: 2
+        severity: BLOCK
+        aliases: ["Detection", "How to Detect"]
+      - heading: "Mitigation"
+        level: 2
+        severity: BLOCK
+        aliases: ["Mitigation", "Recovery Actions"]
+
+  task:
+    required:
+      - heading: "Purpose"
+        level: 2
+        severity: BLOCK
+        aliases: ["Purpose", "Requirements"]
+        description: "Problem the Task solves or goal it achieves"
+      - heading: "Done Criteria"
+        level: 2
+        severity: BLOCK
+        aliases: ["Done Criteria", "Acceptance Criteria"]
+        min_checkboxes: 1
+    recommended:
+      - heading: "Result"
+        level: 2
+        severity: WARN
+        condition: "status == done"
+        aliases: ["Result"]
+
+  sprint:
+    required:
+      - heading: "Goal"
+        level: 2
+        severity: BLOCK
+        aliases: ["Goal"]
+      - heading: "Task List"
+        level: 2
+        severity: BLOCK
+        aliases: ["Task List"]
+    recommended:
+      - heading: "Done Criteria"
+        level: 2
+        severity: WARN
+      - heading: "Outcome"
+        level: 2
+        severity: BLOCK
+        condition: "status == completed"
+
+  knowledge:
+    required:
+      - heading: "Problem"
+        level: 3
+        severity: BLOCK
+        aliases: ["Problem", "Symptoms"]
+      - heading: "Solution"
+        level: 3
+        severity: BLOCK
+        aliases: ["Solution", "Cause", "Fix"]
+    recommended:
+      - heading: "Prevention"
+        level: 3
+        severity: WARN
+        aliases: ["Prevention"]
+
+  incident-report:
+    required:
+      - heading: "Summary"
+        level: 2
+        severity: BLOCK
+        aliases: ["Summary", "Executive Summary"]
+      - heading: "Timeline"
+        level: 2
+        severity: BLOCK
+        aliases: ["Timeline", "Incident Timeline"]
+      - heading: "Root Cause"
+        level: 2
+        severity: BLOCK
+        aliases: ["Root Cause", "RCA"]
+      - heading: "Action Items"
+        level: 2
+        severity: BLOCK
+        aliases: ["Action Items", "Follow-ups"]
+    recommended:
+      - heading: "Impact"
+        level: 2
+        severity: WARN
+
+  analysis:
+    required:
+      - heading: "Purpose"
+        level: 2
+        severity: BLOCK
+        aliases: ["Purpose", "Background"]
+    recommended:
+      - heading: "Methodology"
+        level: 2
+        severity: WARN
+      - heading: "Conclusion"
+        level: 2
+        severity: WARN
+        aliases: ["Conclusion", "Recommendations"]

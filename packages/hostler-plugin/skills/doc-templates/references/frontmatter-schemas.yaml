@@ -1,0 +1,243 @@
+# Frontmatter Schemas
+# Required and recommended frontmatter fields per document type
+# Referenced as the validation criteria by the doc-review SKILL.md
+
+version: "1.0"
+updated: "2026-04-16"
+
+# ── Common fields (applies to every document type) ──
+common:
+  required:
+    - field: title
+      type: string
+      description: Document title
+  recommended:
+    - field: created
+      type: date  # YYYY-MM-DD
+      description: Initial creation date
+    - field: updated
+      type: date
+      description: Last updated date
+    - field: authors
+      type: list[string]
+      description: List of authors
+    - field: doc_type
+      type: string
+      description: Document-type identifier (matches a key under schemas)
+
+# ── Per-type schemas ──
+schemas:
+
+  project:
+    description: Project definition document (PDD, roadmap)
+    required: []
+    recommended:
+      - field: version
+        type: string
+        example: "1.0"
+      - field: status
+        type: enum[draft, active, archived]
+
+  adr:
+    description: Architecture Decision Record
+    required:
+      - field: id
+        type: string
+        pattern: "ADR-[0-9]{3}"
+        example: "ADR-001"
+      - field: status
+        type: enum[proposed, accepted, deprecated, superseded]
+      - field: date
+        type: date
+        description: Decision date
+      - field: deciders
+        type: list[string]
+        description: Decision participants
+    recommended:
+      - field: superseded_by
+        type: string
+        description: Replacement ADR ID (when status=superseded)
+
+  design:
+    description: Design document (domain, feature, API, deployment)
+    required: []
+    recommended:
+      - field: component
+        type: string
+        description: Target component / module
+      - field: status
+        type: enum[draft, review, approved]
+
+  guide:
+    description: Development / operations guide
+    required: []
+    recommended:
+      - field: audience
+        type: list[string]
+        example: ["developer", "operator"]
+      - field: difficulty
+        type: enum[beginner, intermediate, advanced]
+
+  operations:
+    description: Operations spec (SLO, monitoring)
+    required:
+      - field: service
+        type: string
+        description: Target service name
+    recommended:
+      - field: owner
+        type: string
+
+  runbook:
+    description: Operational runbook
+    required:
+      - field: id
+        type: string
+        pattern: "RB-[0-9]{3}"
+        example: "RB-001"
+      - field: service
+        type: string
+      - field: severity
+        type: enum[P0, P1, P2, P3]
+      - field: estimated_resolution
+        type: string
+        example: "15m"
+    recommended:
+      - field: last_tested
+        type: date
+
+  knowledge:
+    description: KB lessons-learned card
+    required:
+      - field: id
+        type: string
+        pattern: "[A-Z][0-9]{2}"
+        example: "M01"
+      - field: category
+        type: enum[api, architecture, domain, operations, mistakes]
+      - field: severity
+        type: enum[critical, high, medium, low]
+    recommended:
+      - field: violation_patterns
+        type: list[string]
+        description: List of grep patterns — used by the Historian for automatic detection
+        example: ["hstl-oss task start.*--force", "git add -A"]
+
+  task:
+    description: Task definition document
+    required:
+      - field: id
+        type: string
+        pattern: "T[0-9]+"
+        example: ""
+      - field: type
+        type: enum[feature, bugfix, hotfix, refactor, docs, test, infra, chore, spike]
+      - field: status
+        type: enum[todo, in-progress, done]
+      - field: sprint
+        type: string
+        example: ""
+      - field: estimate
+        type: enum[XS, S, M, L, XL]
+      - field: priority
+        type: enum[p0, p1, p2, p3]
+      - field: depends_on
+        type: list[string]
+    recommended:
+      - field: created
+        type: date
+      - field: completion_hmac
+        type: string
+        description: Recorded automatically by the CLI on completion
+
+  sprint:
+    description: Sprint definition document (SPRINT.md)
+    required:
+      - field: id
+        type: string
+        pattern: "sprint-[0-9]+"
+        example: ""
+      - field: title
+        type: string
+      - field: status
+        type: enum[backlog, active, completed]
+      - field: goal
+        type: string
+    recommended:
+      - field: started
+        type: date
+      - field: completed
+        type: date
+
+  analysis:
+    description: Analysis report
+    required: []
+    recommended:
+      - field: scope
+        type: string
+        description: Analysis scope
+      - field: methodology
+        type: string
+
+  reference:
+    description: Reference material
+    required: []
+    recommended:
+      - field: source
+        type: string
+        description: Source URL or document name
+      - field: version
+        type: string
+
+  requirements:
+    description: Requirements document (SRS, FRS, NFR)
+    required: []
+    recommended:
+      - field: req_type
+        type: enum[functional, non-functional, system]
+      - field: version
+        type: string
+
+  incident-report:
+    description: Incident report
+    required:
+      - field: incident_id
+        type: string
+        pattern: "INC-[0-9]{4}-[0-9]{2}"
+      - field: severity
+        type: enum[P0, P1, P2, P3]
+      - field: status
+        type: enum[active, resolved, postmortem]
+      - field: started_at
+        type: datetime
+    recommended:
+      - field: resolved_at
+        type: datetime
+      - field: root_cause
+        type: string
+
+  hands-on-lab:
+    description: Hands-on lab guide (tutorial)
+    required: []
+    recommended:
+      - field: duration
+        type: string
+        example: "2h"
+      - field: prerequisites
+        type: list[string]
+      - field: difficulty
+        type: enum[beginner, intermediate, advanced]
+
+  release-checklist:
+    description: Release checklist
+    required:
+      - field: version
+        type: string
+        example: "v1.2.3"
+      - field: release_date
+        type: date
+    recommended:
+      - field: release_manager
+        type: string
+      - field: status
+        type: enum[draft, approved, released]

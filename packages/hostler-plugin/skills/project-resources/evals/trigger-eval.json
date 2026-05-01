@@ -1,0 +1,78 @@
+{
+  "skill_name": "project-resources",
+  "description": "Trigger eval for project resource (port, EventId range, DNS, external API) allocation. Requires at least 4 should_trigger=true and at least 4 should_trigger=false cases.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Check port 5500 conflicts and allocate it to OrderService.Host in the prod environment",
+      "should_trigger": true,
+      "rationale": "Port conflict check + allocation — core trigger"
+    },
+    {
+      "id": 2,
+      "prompt": "Reserve EventId range 6000~6999 for the Reporting BC",
+      "should_trigger": true,
+      "rationale": "logger_event_ranges allocation — core trigger"
+    },
+    {
+      "id": 3,
+      "prompt": "I want to register a DNS record for dashboard.example.com",
+      "should_trigger": true,
+      "rationale": "dns_records allocation — 1.0 catalog"
+    },
+    {
+      "id": 4,
+      "prompt": "Register external API api.example.com/v1 to PriceCollector",
+      "should_trigger": true,
+      "rationale": "external_apis allocation — 1.0 catalog"
+    },
+    {
+      "id": 5,
+      "prompt": "How are ports currently allocated in the prod environment?",
+      "should_trigger": true,
+      "rationale": "registry_list query trigger"
+    },
+    {
+      "id": 6,
+      "prompt": "Clean up the variable naming in this function",
+      "should_trigger": false,
+      "rationale": "Source-code variable — unrelated to resource allocation; general code refactoring territory"
+    },
+    {
+      "id": 7,
+      "prompt": "What is port 80 used for?",
+      "should_trigger": false,
+      "rationale": "Knowledge question (HTTP standard port) — not an allocation action; general-answer territory"
+    },
+    {
+      "id": 8,
+      "prompt": "Start the sprint",
+      "should_trigger": false,
+      "rationale": "Sprint management — owned by sprint-management skill"
+    },
+    {
+      "id": 9,
+      "prompt": "Create a new Task and add it to the previous sprint",
+      "should_trigger": false,
+      "rationale": "Task creation — owned by task-management skill"
+    },
+    {
+      "id": 10,
+      "prompt": "Refactor the variable name in this helper function for readability",
+      "should_trigger": false,
+      "rationale": "Source-code refactoring — outside resource allocation scope; general code work"
+    },
+    {
+      "id": 11,
+      "prompt": "registry allocate ports value 5710 owner WebFE",
+      "should_trigger": true,
+      "rationale": "Direct registry_allocate imperative — core trigger"
+    },
+    {
+      "id": 12,
+      "prompt": "I want to register a new Dapr app id — how should I do it?",
+      "should_trigger": true,
+      "rationale": "Extension candidate dapr_app_ids — guidance trigger for dynamically creating a new type"
+    }
+  ]
+}

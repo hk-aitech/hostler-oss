@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Check the recent sprints' Task files for frontmatter correctness. Especially priority must be in P0~P3 and Done Criteria must have at least 2 checkboxes.",
+    "should_trigger": true
+  },
+  {
+    "query": "Can it detect placeholders like 'TODO: write later' in Task files?",
+    "should_trigger": true
+  },
+  {
+    "query": "Run doc-review --fix mode to auto-fix the previous sprint's docs.",
+    "should_trigger": true
+  },
+  {
+    "query": "Can it inspect the quality of SPRINT.md too? I want to verify date format and Task list correctness.",
+    "should_trigger": true
+  },
+  {
+    "query": "Run a doc-quality check on the entire docs/01-sprints/(historical)/ Task files. I need to find missing frontmatter and empty sections.",
+    "should_trigger": true
+  },
+  {
+    "query": "Check whether ADR-004 follows the template — status is 'Proposed' but the date is missing, so I want to verify.",
+    "should_trigger": true
+  },
+  {
+    "query": "Can it detect a Task file with status=done that has zero checkboxes?",
+    "should_trigger": true
+  },
+  {
+    "query": "Look at the current sprint docs — I think a few have empty sections, want to run a single review.",
+    "should_trigger": true
+  },
+  {
+    "query": "Tell me which Task files are missing the frontmatter type field.",
+    "should_trigger": true
+  },
+  {
+    "query": "I ran the doc standard check and got placeholder warnings — show me which files are involved in detail.",
+    "should_trigger": true
+  },
+  {
+    "query": "Check whether Feature IDs are duplicated across the design docs.",
+    "should_trigger": false
+  },
+  {
+    "query": "Cross-validate whether any event in the catalog has no subscribers.",
+    "should_trigger": false
+  },
+  {
+    "query": "Start the next sprint — transition from backlog to active.",
+    "should_trigger": false
+  },
+  {
+    "query": "Code review for PR #42.",
+    "should_trigger": false
+  },
+  {
+    "query": "Create a new Task — implement WebSocket reconnect logic.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a work-audit on this sprint to verify completion correctness — also check commit messages.",
+    "should_trigger": false
+  },
+  {
+    "query": "Find broken links in docs/03-design/.",
+    "should_trigger": false
+  },
+  {
+    "query": "Create an ADR template — I need to author a new ADR.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a sprint retrospective and gather lessons from the previous sprint.",
+    "should_trigger": false
+  },
+  {
+    "query": "Verify that the design-doc Feature counts match the SPRINT.md totals.",
+    "should_trigger": false
+  }
+]

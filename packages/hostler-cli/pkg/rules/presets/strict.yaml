@@ -1,0 +1,16 @@
+# preset://hostler/strict — recommended + elevated severity
+version: 1
+extends:
+  - preset://hostler/recommended
+rules:
+  # Result-section validation cannot be relaxed.
+  task.result_section.files_exist: hard-block
+  task.body.not_placeholder: hard-block
+  # Document/commit conventions are also elevated.
+  commit.message.korean: block
+  commit.task_id.present: block
+  # lint is elevated to block.
+  task.feature.lint_passed: block
+  task.bugfix.lint_passed: block
+  task.refactor.lint_passed: block
+  task.hotfix.lint_passed: block

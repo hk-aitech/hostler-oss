@@ -1,0 +1,22 @@
+[
+  {"query": "Run a deep comparative analysis between Dapr, Orleans, and Proto.Actor. Search the internet for the latest benchmarks, community activity, and production cases, and produce a report", "should_trigger": true},
+  {"query": "Broadly search Python-based open-source automation systems that are actively maintained and write a competitive-analysis report", "should_trigger": true},
+  {"query": "Run a deep analysis of TimescaleDB vs QuestDB vs InfluxDB time-series performance using the latest data — bonus if there's an ARM64 benchmark", "should_trigger": true},
+  {"query": "Research 2025-2026 .NET ecosystem trends — focus on changes that affect our project, like Aspire, Dapr 2.0, MAUI", "should_trigger": true},
+  {"query": "Research which is optimal for real-time data streaming: gRPC streaming vs WebSocket vs SSE. Write a report including the latest papers and benchmarks", "should_trigger": true},
+  {"query": "deep analysis on how other trading platforms handle circuit breaker patterns for order execution. Research Alpaca, QuantConnect, Zipline architectures", "should_trigger": true},
+  {"query": "Research optimal vLLM settings for serving the EXAONE LLM, including ARM64 GPU inference benchmarks and memory optimization", "should_trigger": true},
+  {"query": "Compare Parquet vs Arrow vs HDF5 for financial-data storage with the latest references and recommend one for our use case", "should_trigger": true},
+  {"query": "Research external data-provider API architecture patterns and produce a similar-systems analysis report", "should_trigger": true},
+  {"query": "Compare ML.NET LightGBM vs Python scikit-learn — focus on accuracy in time-series prediction. Reference recent Kaggle results", "should_trigger": true},
+  {"query": "Design an architecture using the Dapr Actor model — entity-per-Actor pattern and state-management strategy", "should_trigger": false},
+  {"query": "Run an operational review on 69 SLOs and analyze monitoring blind spots", "should_trigger": false},
+  {"query": "Troubleshoot the WebSocket connection that keeps dropping — logs show timeouts every 30 seconds", "should_trigger": false},
+  {"query": "Write an ADR proposing the migration from Redis to Valkey", "should_trigger": false},
+  {"query": "Design protocol adapters per external source for the Collection BC ACL pattern", "should_trigger": false},
+  {"query": "Identify and prioritize technical debt items in the sprint review", "should_trigger": false},
+  {"query": "Find modules with low test coverage and auto-generate unit tests", "should_trigger": false},
+  {"query": "Update the deployment diagram in the target architecture doc to reflect the K8s migration", "should_trigger": false},
+  {"query": "Define an auto-recovery scenario for collection-service incidents and write the BDM doc", "should_trigger": false},
+  {"query": "Build a Phase 2 implementation plan and assign Tasks per Sprint", "should_trigger": false}
+]

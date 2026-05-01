@@ -1,0 +1,26 @@
+# dotnet-multi-bc — preset for .NET multi-Bounded-Context projects (T209 I07).
+#
+# This file is embedded into the Go binary and is referenced as
+# `builtin:dotnet-multi-bc`. Targets .NET projects with multiple BCs
+# (e.g. 7 BCs).
+#
+# Includes:
+#   - platform.kind: dotnet (Tagged Union)
+#   - skills.code-review.rules: Roslyn-based BC reference validation guide
+#   - skills.project-structure.rules: BC = project 1:1 rule (ADR-014 style)
+#
+# When extends merges, project YAML following this preset overrides
+# project-specific fields like platform.dotnet.solution_file and
+# platform.dotnet.bounded_contexts.
+
+platform:
+  kind: dotnet
+
+skills:
+  code-review:
+    rules:
+      - Roslyn DT analyzers (forbid direct BC-to-BC references) must run at Error level
+  project-structure:
+    rules:
+      - BC = .NET project 1:1 mapping (ADR-014)
+      - No direct BC-to-BC references; only SharedKernel/Contracts are allowed

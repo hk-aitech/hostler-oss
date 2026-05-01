@@ -1,0 +1,16 @@
+# preset://hostler/relaxed — recommended + relaxed (for early-adoption projects)
+version: 1
+extends:
+  - preset://hostler/recommended
+rules:
+  # Result-section validation is relaxed.
+  task.result_section.files_exist: warn
+  task.body.not_placeholder: advisory
+  # Commit conventions are relaxed to advisory.
+  commit.message.korean: advisory
+  commit.task_id.present: advisory
+  commit.files.no_secrets: warn
+  # retro/learned are relaxed to warn.
+  sprint.phase.retro: warn
+  sprint.phase.learned: warn
+  sprint.phase.followup_tasks: warn

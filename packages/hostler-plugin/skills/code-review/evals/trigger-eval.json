@@ -1,0 +1,22 @@
+[
+  {"query": "Review the StockActor.cs code, focusing on null safety, exception handling, and Dapr state serialization compatibility", "should_trigger": true},
+  {"query": "Review the entire Infrastructure layer of the Collection BC from a security perspective. Check for hardcoded secrets and SQL injection possibilities", "should_trigger": true},
+  {"query": "Analyze the quality of the recently committed WebSocket reconnect code. Focus on resource leaks, race conditions, and error-handling patterns", "should_trigger": true},
+  {"query": "review the code quality of MyApp.SharedKernel project. Check for SOLID violations, naming conventions, and test coverage gaps", "should_trigger": true},
+  {"query": "I'm worried about memory usage in the Edge collector code. Run a code review to find possible memory leaks", "should_trigger": true},
+  {"query": "Auto-analyze the changes in the PR and grade the code quality — include complexity, duplication, and naming conventions", "should_trigger": true},
+  {"query": "Review the EF Core migration code. Check for N+1 queries, missing indexes, and transaction scope correctness", "should_trigger": true},
+  {"query": "I want to do a security review. Scan the entire src/ for authentication/authorization code and sensitive-info exposure risks", "should_trigger": true},
+  {"query": "Identify performance bottleneck patterns in the Strategy BC's ML pipeline code via code review", "should_trigger": true},
+  {"query": "Scan the whole codebase to verify TimeProvider rules (ADR-003) are followed — find direct DateTimeOffset.UtcNow calls", "should_trigger": true},
+  {"query": "Run a doc review for the previous sprint. Inspect frontmatter and checkbox completion in Task files", "should_trigger": false},
+  {"query": "Run a work audit and check whether the current Sprint's Tasks comply with the workflow", "should_trigger": false},
+  {"query": "I want to start the sprint review process. Analyze sprint outcomes against the rubric", "should_trigger": false},
+  {"query": "Start a code review session and run the review-management process that assigns reviewers", "should_trigger": false},
+  {"query": "Inspect the quality of docs/03-design/ and check whether placeholders or TODOs remain", "should_trigger": false},
+  {"query": "After the review is complete, mark approved and archive the review results", "should_trigger": false},
+  {"query": "Validate Integration Event consistency between Collection BC and Strategy BC", "should_trigger": false},
+  {"query": "Auto-generate test code. UserActor's main methods need unit tests", "should_trigger": false},
+  {"query": "Inspect the project's overall implementation completion ratio and remaining workload", "should_trigger": false},
+  {"query": "Run ruff lint on Python code with auto-fix", "should_trigger": false}
+]

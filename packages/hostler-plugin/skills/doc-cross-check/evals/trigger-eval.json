@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Cross-validate the entire design docs — check for Feature ID duplication or sum mismatches.",
+    "should_trigger": true
+  },
+  {
+    "query": "Inspect whether Feature IDs in the feature catalog are duplicated or whether the totals match.",
+    "should_trigger": true
+  },
+  {
+    "query": "Verify whether any event in the catalog has no subscribers — pub/sub consistency check needed.",
+    "should_trigger": true
+  },
+  {
+    "query": "Check for terminology mixing across docs — for example, whether 'surge' and 'spike' are mixed.",
+    "should_trigger": true
+  },
+  {
+    "query": "Run --phase=7 to check links only — find broken links across the entire repo.",
+    "should_trigger": true
+  },
+  {
+    "query": "Run a consistency check between CLAUDE.md and the actual project structure.",
+    "should_trigger": true
+  },
+  {
+    "query": "Verify that the Task list in BACKLOG.md matches the actual Task files in the Sprint folders.",
+    "should_trigger": true
+  },
+  {
+    "query": "Run a design audit — check numerical consistency and missing references in one go.",
+    "should_trigger": true
+  },
+  {
+    "query": "Verify that Integration Events referenced by BC specs are actually defined in the event catalog.",
+    "should_trigger": true
+  },
+  {
+    "query": "Find broken consistency across the project docs — numbers, terms, links included.",
+    "should_trigger": true
+  },
+  {
+    "query": "Tell me if any current sprint Task file is missing frontmatter.",
+    "should_trigger": false
+  },
+  {
+    "query": "Check whether Task files contain placeholders.",
+    "should_trigger": false
+  },
+  {
+    "query": "Audit this sprint for hstl-oss workflow compliance.",
+    "should_trigger": false
+  },
+  {
+    "query": "Start a code review on recent commits.",
+    "should_trigger": false
+  },
+  {
+    "query": "Quality-check ADR-003 against the template.",
+    "should_trigger": false
+  },
+  {
+    "query": "Redesign the BC — establish the Aggregate structure for the Collection BC.",
+    "should_trigger": false
+  },
+  {
+    "query": "Mark this sprint complete.",
+    "should_trigger": false
+  },
+  {
+    "query": "Record this lesson — caveats when creating TimescaleDB hypertables.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write a deep-research report — comparative analysis of alternative trading systems.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write the SLO definition for WebSocket connection stability.",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {"query": "What does our project folder structure look like? Explain the directories under src", "should_trigger": true},
+  {"query": "I'm curious about the file naming convention — what are the rules for test files vs source files?", "should_trigger": true},
+  {"query": "When adding a new Bounded Context, how should the directories be organized? Show me the standard structure", "should_trigger": true},
+  {"query": "Under docs there are folders like migration, knowledge, design — explain what each holds", "should_trigger": true},
+  {"query": "Is there a project folder conventions doc? I don't know where to put new files", "should_trigger": true},
+  {"query": "What's the principle behind the tests directory? Per project or unified?", "should_trigger": true},
+  {"query": "I need to understand the standard directory layout for this plugin project. Where do skills, hooks, and agents go?", "should_trigger": true},
+  {"query": "Where does Infrastructure code go? Also explain how to distinguish the Host project from the Infrastructure project", "should_trigger": true},
+  {"query": "Show me the folder structure — especially why the Contracts project is separate and what files go in it", "should_trigger": true},
+  {"query": "Should docker-related files live under docker/ at the project root? Tell me the compose file naming rules too", "should_trigger": true},
+  {"query": "I want to write the target architecture design doc — define the comm patterns between 6 processes and Dapr sidecar placement", "should_trigger": false},
+  {"query": "I'm starting a project — guide me from dotnet SDK install to running Docker Compose", "should_trigger": false},
+  {"query": "Create an ADR template — include title, status, context, decision, and consequences sections", "should_trigger": false},
+  {"query": "I'm designing the deployment architecture — produce a Docker Compose config that runs on ARM64 DGX", "should_trigger": false},
+  {"query": "Onboarding a new team member — can you put together a getting-started guide?", "should_trigger": false},
+  {"query": "I need a Sprint review document template — include rubric and improvement-recommendation sections", "should_trigger": false},
+  {"query": "Organize design doc templates — domain model doc, Integration Event catalog format, etc.", "should_trigger": false},
+  {"query": "If I want to migrate the solution structure from Modular Monolith to microservices, what architecture changes are needed?", "should_trigger": false},
+  {"query": "Design the Aggregate Root for the Domain Layer of the Collection BC — domain model for WebSocket connection management", "should_trigger": false},
+  {"query": "I'm new to the hstl-oss plugin — show me basic usage and workflow", "should_trigger": false}
+]

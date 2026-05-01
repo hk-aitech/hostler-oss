@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/hk-aitech/hostler-oss/security/advisories/new
+    about: Report a security issue privately. Do not open a public issue.
+  - name: Discussion / question
+    url: https://github.com/hk-aitech/hostler-oss/discussions
+    about: For open-ended questions, design discussions, and "how do I…" topics.

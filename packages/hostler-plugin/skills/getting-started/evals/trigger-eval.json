@@ -1,0 +1,22 @@
+[
+  {"query": "I'm new to the hstl-oss plugin — give me an end-to-end overview of the available commands and the workflow order", "should_trigger": true},
+  {"query": "Show me the plugin guide. I want to understand the entire workflow from sprint start to completion", "should_trigger": true},
+  {"query": "how to use hstl-oss plugin? I'm new to this project and want to understand the available commands and workflow patterns", "should_trigger": true},
+  {"query": "Tell me how to use Task management, Sprint management, code review and similar features in hstl-oss", "should_trigger": true},
+  {"query": "getting started with the development workflow. I just joined the project — what automation does hstl-oss provide?", "should_trigger": true},
+  {"query": "Give me a plugin introduction. Show me the slash command list and when to use each, with examples", "should_trigger": true},
+  {"query": "Summarize the hstl-oss plugin's skill list and explain when each skill is triggered", "should_trigger": true},
+  {"query": "What tools do I need to know to work in this project? Explain the hstl-oss usage patterns and common workflow", "should_trigger": true},
+  {"query": "Is the hstl-oss workflow order task:start → dev:build → dev:test → task:complete correct? Walk me through the whole process", "should_trigger": true},
+  {"query": "Is there a plugin usage guide? Show me an end-to-end example from sprint management to code review", "should_trigger": true},
+  {"query": "Explain how the SessionStart hook works and what CURRENT-FOCUS.md is", "should_trigger": false},
+  {"query": "Show me the standard directory convention for the project folder structure", "should_trigger": false},
+  {"query": "Show me what the --uc flag and --c7 flag are — give me the full flag list", "should_trigger": false},
+  {"query": "I want to start sprint 13 — transition it from backlog to active and verify design readiness", "should_trigger": false},
+  {"query": "Check the current sprint status and tell me which Tasks remain", "should_trigger": false},
+  {"query": "Tell me the standard frontmatter format and required fields for Task files", "should_trigger": false},
+  {"query": "Explain how auto memory works and the cross-session memory retention mechanism", "should_trigger": false},
+  {"query": "I want to initialize a new project — auto-generate the folder structure and default docs", "should_trigger": false},
+  {"query": "Recommend the next task to work on — pick one based on priority", "should_trigger": false},
+  {"query": "Write the sprint retrospective and record the lessons in the knowledge base", "should_trigger": false}
+]

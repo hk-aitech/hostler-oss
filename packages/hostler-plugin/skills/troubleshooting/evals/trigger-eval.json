@@ -1,0 +1,22 @@
+[
+  {"query": "WebSocket connections keep dropping — find the cause. Walk through the 5-step problem-resolution process.", "should_trigger": true},
+  {"query": "An incident happened — TimescaleDB connection pool exhausted and the Collection service crashed. How do I respond?", "should_trigger": true},
+  {"query": "I want to start a debug workflow. Dapr Actor times out intermittently.", "should_trigger": true},
+  {"query": "What is the incident-management procedure? We're currently in a production incident.", "should_trigger": true},
+  {"query": "I want to follow the troubleshooting guide. Redis pub/sub messages seem to be lost — diagnose step by step.", "should_trigger": true},
+  {"query": "Build is broken and I can't tell why. Possibly a NuGet package version conflict — help me troubleshoot.", "should_trigger": true},
+  {"query": "Walk through this issue using the 5-step problem-resolution process — Docker container restarts repeatedly.", "should_trigger": true},
+  {"query": "Tests fail in CI but pass locally. Guide me through how to debug.", "should_trigger": true},
+  {"query": "I need incident response. Communication is severed between the Edge devices and the main server.", "should_trigger": true},
+  {"query": "Diagnose this error systematically — Identify, Classify, Diagnose stages.", "should_trigger": true},
+  {"query": "Write the SLO definition. Analyze expected behaviour and failure modes for the Collection service.", "should_trigger": false},
+  {"query": "Run a work-audit and verify the implementation quality of completed Tasks.", "should_trigger": false},
+  {"query": "Do broad internet research on this topic — latest WebSocket reconnect strategy trends.", "should_trigger": false},
+  {"query": "Run an FMA (failure mode analysis) on the Trading BC's order-execution pipeline.", "should_trigger": false},
+  {"query": "Find monitoring blind spots — verify whether the current alerting policy has gaps.", "should_trigger": false},
+  {"query": "Run a code review — verify error handling and check for security vulnerabilities.", "should_trigger": false},
+  {"query": "Run a deep analysis comparing Dapr Actor vs Orleans as a research report.", "should_trigger": false},
+  {"query": "Run an operational review — define the Error Budget and design auto-recovery policy.", "should_trigger": false},
+  {"query": "Run a work-quality check — find unchecked boxes and missing result sections.", "should_trigger": false},
+  {"query": "Author a BDM scenario — define the system-wide failure scenarios and response plans.", "should_trigger": false}
+]

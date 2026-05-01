@@ -1,0 +1,75 @@
+name: Bug report
+description: Report something that's broken — wrong output, panics, regressions, doc errors that mislead.
+title: "[bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please check open issues first; if there's a match, comment on the existing thread instead of opening a new one.
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `hstl-oss version`
+      placeholder: '{"data":{"commit":"abc1234","date":"…","version":"v0.1.0"},"status":"ok"}'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where does the bug live?
+      options:
+        - CLI (`hstl-oss` command)
+        - Plugin (slash commands / skills / hooks)
+        - Both / unsure
+        - Documentation
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      placeholder: e.g. macOS 14.5 (arm64), Ubuntu 24.04 (amd64), Windows 11
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: |
+        Minimal steps that trigger the bug. Prefer copy-pasteable shell commands.
+      placeholder: |
+        1. `hstl-oss task create --title "..." --type chore --priority p3 --estimate XS --summary "..."`
+        2. `hstl-oss task start T001`
+        3. observed: ...
+        4. expected: ...
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual output
+      description: Full stderr + stdout. Don't truncate panics or stack traces.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected output
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: Anything else — screenshots, related issues, hypotheses, recent local changes.

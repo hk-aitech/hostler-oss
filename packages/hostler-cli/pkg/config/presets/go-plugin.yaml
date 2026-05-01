@@ -1,0 +1,27 @@
+# go-plugin — preset for Go plugin projects (T209 I07)
+#
+# This file is embedded into the Go binary and is referenced as `builtin:go-plugin`.
+# The plugin itself is the primary consumer; future Go-based extension
+# plugin projects can reuse the same preset.
+#
+# Includes:
+#   - platform.kind: go (Tagged Union)
+#   - platform.go.lint: the standard trio gofmt + govet + staticcheck
+#   - skills.code-review.rules: Go standard checks + magic-constant detection
+#
+# When the project YAML follows this preset in extends, project-specific
+# fields like platform.go.module override the preset values.
+
+platform:
+  kind: go
+  go:
+    lint:
+      - gofmt
+      - govet
+      - staticcheck
+
+skills:
+  code-review:
+    rules:
+      - Go standard — gofmt, go vet, and go test must pass
+      - detect magic constants (extract to const or HSTL_* env vars)

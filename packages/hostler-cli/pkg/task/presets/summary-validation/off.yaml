@@ -1,0 +1,10 @@
+# summary_validation: off preset.
+# Disables every summary check. Use only in temporary emergencies
+# (e.g. bulk Task import, automated testing). The default is strict;
+# enable off via project-config.yaml or the
+# HSTL_SUMMARY_POLICY=off environment variable.
+preset: "off"
+min_unique_words: 0
+forbidden_solo_keywords: []
+required_purpose_connectors: []
+enable_llm_judge: false

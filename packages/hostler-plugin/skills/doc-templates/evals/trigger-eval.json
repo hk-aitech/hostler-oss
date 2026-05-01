@@ -1,0 +1,22 @@
+[
+  {"query": "Use the ADR template to create a new architecture decision record. ADR for the WebSocket protocol choice", "should_trigger": true},
+  {"query": "I need a Sprint document template — generate the SPRINT.md skeleton for starting the next sprint", "should_trigger": true},
+  {"query": "What's the standard frontmatter format for Task files? I need a template for creating new Task files", "should_trigger": true},
+  {"query": "Give me a design-doc template. I'm documenting a Context Map design and want to follow the standard form", "should_trigger": true},
+  {"query": "Use the knowledge template to record a new lesson — is there a per-category standard?", "should_trigger": true},
+  {"query": "Show me the document template list — I'm curious which kinds of templates are available", "should_trigger": true},
+  {"query": "I need a review document template — which template should I use for code-review results?", "should_trigger": true},
+  {"query": "Is there a Phase completion-report template? I want to write a Phase 1 wrap-up report in the standard form", "should_trigger": true},
+  {"query": "I'm writing a new BC design doc — show me the standard document-structure template", "should_trigger": true},
+  {"query": "Tell me the spec and example for the required Task fields (type, status, sprint, etc.) — I'll bulk-generate from the template", "should_trigger": true},
+  {"query": "Inspect the quality of docs/03-design/ — placeholders, TODOs, broken links", "should_trigger": false},
+  {"query": "Design an ADR explaining why Dapr Actor Model was chosen — include alternatives and trade-offs", "should_trigger": false},
+  {"query": "Reorganize the project folder structure to match the standard directory convention", "should_trigger": false},
+  {"query": "Run a doc review on the previous sprint Task files to verify frontmatter compliance", "should_trigger": false},
+  {"query": "Record 3 lessons in the knowledge base — FakeTimeProvider compatibility issue + agent process accumulation issue", "should_trigger": false},
+  {"query": "Walk me through the entire usage and workflow of the hstl-oss plugin", "should_trigger": false},
+  {"query": "Mark the sprint complete — include retrospective and Task status updates", "should_trigger": false},
+  {"query": "Cross-validate consistency across docs and find numeric mismatches", "should_trigger": false},
+  {"query": "Update the target architecture doc and add the deployment diagram", "should_trigger": false},
+  {"query": "Review the Aggregate design of the Collection BC and define the Domain Event list", "should_trigger": false}
+]

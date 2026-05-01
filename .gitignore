@@ -50,6 +50,7 @@ pnpm-debug.log*
 .hstl-oss/
 .hostler/
 .hstl/local/
+.hstl/project-config.yaml
 
 # --- Python tooling caches (skill helpers) ---
 __pycache__/

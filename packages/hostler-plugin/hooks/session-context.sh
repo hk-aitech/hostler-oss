@@ -26,6 +26,7 @@ readonly HOOK_TIMEOUT_SEC="${HSTL_OSS_SESSION_TIMEOUT_SEC:-8}"
     kill -9 $$ 2>/dev/null
 ) &
 TIMEOUT_PID=$!
+# shellcheck disable=SC2064  # TIMEOUT_PID is fixed here; expanding at trap-registration time is intentional
 trap "kill $TIMEOUT_PID 2>/dev/null" EXIT
 
 # ===== Error handler =====
@@ -78,8 +79,8 @@ fi
 # ===== [project] Git status =====
 BRANCH=$(git branch --show-current 2>/dev/null || echo 'detached')
 UNCOMMITTED=$(git status --short 2>/dev/null | wc -l | tr -d ' ')
-AHEAD=$(git rev-list --count @{upstream}..HEAD 2>/dev/null || echo "0")
-BEHIND=$(git rev-list --count HEAD..@{upstream} 2>/dev/null || echo "0")
+AHEAD=$(git rev-list --count '@{upstream}..HEAD' 2>/dev/null || echo "0")
+BEHIND=$(git rev-list --count 'HEAD..@{upstream}' 2>/dev/null || echo "0")
 
 echo "[project] branch:${BRANCH} uncommitted:${UNCOMMITTED} ahead:${AHEAD} behind:${BEHIND}"
 

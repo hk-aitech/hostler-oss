@@ -28,6 +28,7 @@ export HOSTLER_OSS_PRECOMMIT_RUNNING=1
 
 # ===== Colour output =====
 RED='\033[0;31m'
+# shellcheck disable=SC2034  # palette completeness — kept for consistency with other hook scripts and future messages
 YELLOW='\033[1;33m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
@@ -92,6 +93,7 @@ check_ruff() {
 
     local ruff_output
     local ruff_exit=0
+    # shellcheck disable=SC2086  # $staged_py_files is a whitespace-separated list — splitting is intentional
     ruff_output=$(ruff check $staged_py_files 2>&1) || ruff_exit=$?
 
     if [ $ruff_exit -ne 0 ]; then

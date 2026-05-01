@@ -19,7 +19,7 @@ required_dirs:
     required_subdirs:
       - mistakes
   - path: skills
-    description: Skills directory (per skill: SKILL.md + evals/ + references/)
+    description: "Skills directory (per skill: SKILL.md + evals/ + references/)"
     pattern: true
     file_pattern: "*/SKILL.md"
   - path: commands

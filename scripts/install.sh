@@ -174,6 +174,7 @@ case ":$PATH:" in
     *)
         warn "${INSTALL_DIR} is not on PATH"
         printf '%s     add this line to your shell rc:%s\n' "$dim" "$reset" >&2
+        # shellcheck disable=SC2016 # the literal $PATH is part of the rc-line we want the user to copy
         printf '       export PATH="%s:$PATH"\n' "$INSTALL_DIR" >&2
         ;;
 esac

@@ -44,6 +44,8 @@ jobs:
         run: go build ./...
 
       - name: go test
+        env:
+          CGO_ENABLED: 1   # -race requires cgo
         run: go test -count=1 -race ./...
 
   shell:
